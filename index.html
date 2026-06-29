@@ -744,7 +744,7 @@ function doLogin() {
       renderUserSummary();
     } else {
       document.getElementById('user-form-card').style.display = 'block';
-      checkDeadline();
+      checkDeadline(); /* 로그인 시 마감 체크 */
     }
   } else {
     document.getElementById('user-login-err').style.display = 'flex';
