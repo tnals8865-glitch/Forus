@@ -12,7 +12,6 @@
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <title>정읍지사 급식 식수 조사</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
-<!-- XLSX 미리 로드 -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -134,7 +133,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 
 <nav id="nav">
   <div class="nlogo">
-    <div class="nicon"><i class="ti ti-bowl-chopsticks" aria-hidden="true"></i></div>
+    <div class="nicon"><i class="ti ti-bowl-chopsticks"></i></div>
     <div><div class="ntitle">식수 조사</div><div class="nsub">정읍지사</div></div>
   </div>
   <div class="ntabs">
@@ -181,7 +180,6 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
       <span class="chip-p" id="user-date-chip"></span>
       <span class="chip-w"><i class="ti ti-clock"></i>매일 오전 9시 30분 마감</span>
     </div>
-    <!-- 날짜 선택 -->
     <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
       <input type="date" id="user-vote-date" class="fi" style="flex:1;padding:10px 13px;font-size:14px" onchange="onVoteDateChange()"/>
       <button class="btn bp btn-sm" onclick="onVoteDateChange()"><i class="ti ti-search"></i> 조회</button>
@@ -213,7 +211,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div class="slbl" style="margin-bottom:0">오늘의 식단</div>
+      <div class="slbl" style="margin-bottom:0">식단</div>
       <span class="badge bb" id="user-menu-date-label"></span>
     </div>
     <div id="ui-menu-display" style="border-radius:var(--rx);overflow:hidden">
@@ -235,11 +233,13 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
   </div>
 
   <div class="card" id="user-submit-result" style="display:none">
-    <div class="alert as"><i class="ti ti-circle-check"></i><div>제출이 완료되었습니다.<br><small>수정이 필요하면 아래 버튼을 눌러주세요.</small></div></div>
+    <div class="alert as"><i class="ti ti-circle-check"></i>
+      <div>제출이 완료되었습니다.<br><small>수정이 필요하면 아래 버튼을 눌러주세요.</small></div>
+    </div>
     <div class="dvd"></div>
     <button class="btn bgh" onclick="editVote()"><i class="ti ti-edit"></i> 응답 수정하기</button>
     <div class="dvd"></div>
-    <div class="slbl">오늘의 식수 현황</div>
+    <div class="slbl">식수 현황</div>
     <div class="sgrid" style="margin-bottom:14px">
       <div class="sbox sg"><div class="sv" id="us-meal">0</div><div class="sl">식사 예정</div></div>
       <div class="sbox sgr"><div class="sv" id="us-pending">0</div><div class="sl">미응답</div></div>
@@ -262,7 +262,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     </div>
   </div>
   <div class="card">
-    <div class="slbl">오늘의 집계</div>
+    <div class="slbl">집계</div>
     <div class="sgrid">
       <div class="sbox sb"><div class="sv" id="a-total">-</div><div class="sl">전체 대상자</div></div>
       <div class="sbox sg"><div class="sv" id="a-meal">-</div><div class="sl">식사 예정</div></div>
@@ -317,14 +317,14 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
       <button class="btn bgh" style="flex:1" onclick="document.getElementById('menu-ta').focus()"><i class="ti ti-edit"></i> 수정</button>
       <button class="btn bd"  style="flex:1" onclick="deleteMenu()"><i class="ti ti-trash"></i> 삭제</button>
     </div>
-    <div id="menu-save-ok"    style="display:none;margin-top:10px" class="alert as"><i class="ti ti-circle-check"></i> 식단이 저장되었습니다.</div>
-    <div id="menu-delete-ok"  style="display:none;margin-top:10px" class="alert ar"><i class="ti ti-trash"></i> 식단이 삭제되었습니다.</div>
+    <div id="menu-save-ok"   style="display:none;margin-top:10px" class="alert as"><i class="ti ti-circle-check"></i> 식단이 저장되었습니다.</div>
+    <div id="menu-delete-ok" style="display:none;margin-top:10px" class="alert ar"><i class="ti ti-trash"></i> 식단이 삭제되었습니다.</div>
   </div>
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div class="slbl" style="margin-bottom:0">파일로 일괄 등록</div><span class="badge bb">주간 · 월간</span>
+      <div class="slbl" style="margin-bottom:0">파일로 일괄 등록</div>
+      <span class="badge bb">주간 · 월간</span>
     </div>
-    <!-- 서식 다운로드 -->
     <div style="display:flex;align-items:center;justify-content:space-between;background:var(--pl);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px">
       <div style="display:flex;align-items:center;gap:10px">
         <i class="ti ti-file-spreadsheet" style="font-size:22px;color:var(--p)"></i>
@@ -377,9 +377,9 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
   </div>
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div class="slbl" style="margin-bottom:0">엑셀로 일괄 등록</div><span class="badge bb">다수 직원</span>
+      <div class="slbl" style="margin-bottom:0">엑셀로 일괄 등록</div>
+      <span class="badge bb">다수 직원</span>
     </div>
-    <!-- 서식 다운로드 -->
     <div style="display:flex;align-items:center;justify-content:space-between;background:var(--pl);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px">
       <div style="display:flex;align-items:center;gap:10px">
         <i class="ti ti-file-spreadsheet" style="font-size:22px;color:var(--p)"></i>
@@ -430,721 +430,688 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     <div class="fg"><label class="flbl" for="pw-new">새 비밀번호</label><input id="pw-new" type="password" class="fi" maxlength="4" placeholder="새 4자리" inputmode="numeric"/></div>
     <div class="fg" style="margin-bottom:14px"><label class="flbl" for="pw-confirm">새 비밀번호 확인</label><input id="pw-confirm" type="password" class="fi" maxlength="4" placeholder="새 비밀번호 재입력" inputmode="numeric"/></div>
     <div id="pw-err" style="display:none;margin-bottom:10px" class="alert ar"><i class="ti ti-alert-circle"></i><span id="pw-err-msg"></span></div>
-    <div id="pw-ok"  style="display:none;margin-bottom:10px" class="alert as"><i class="ti ti-circle-check"></i> 비밀번호가 변경되었습니다. 다음 로그인부터 새 비밀번호를 사용하세요.</div>
+    <div id="pw-ok"  style="display:none;margin-bottom:10px" class="alert as"><i class="ti ti-circle-check"></i> 비밀번호가 변경되었습니다.</div>
     <button class="btn bp" onclick="changePin()"><i class="ti ti-lock-check"></i> 비밀번호 변경하기</button>
   </div>
 </div>
 
 <script>
-/* ══════════════════════════════════════════
-   설정
-══════════════════════════════════════════ */
-var API      = 'https://script.google.com/macros/s/AKfycbzH_wRDwQetbnfC-cic0KW9FFPrwcxKl21ifHmdvnB103OeATwR7rujrfbfweZCr-e03g/exec';
-var ADMIN_PIN     = '0000';
-var DEADLINE      = '09:30';
+var API       = 'https://script.google.com/macros/s/AKfycbzH_wRDwQetbnfC-cic0KW9FFPrwcxKl21ifHmdvnB103OeATwR7rujrfbfweZCr-e03g/exec';
+var ADMIN_PIN = '0000';
+var DEADLINE  = '09:30';
 var adminUnlocked = false;
 var pendingPage   = null;
-var pendingBtn    = null;
 var pinBuf        = '';
 var staffList     = [];
 var voteMap       = {};
 var loggedId      = '';
 var mealPick      = null;
+var voteDate      = '';
 var parsedStaff   = [];
 var parsedMenus   = [];
-/* 현재 투표 대상 날짜 */
-var voteDate = '';
+var LS_ID   = 'siksu_id';
+var LS_VOTE = 'siksu_vote';
+var LS_DATE = 'siksu_date';
 
-/* ══════════════════════════════════════════
-   JSONP 통신 (GET/POST 모두 이 방식 사용)
-══════════════════════════════════════════ */
-function jsonp(url, onSuccess){
+/* JSONP */
+function jsonp(url, cb) {
   var id  = '_cb' + Date.now() + Math.floor(Math.random()*9999);
   var el  = document.createElement('script');
-  var tid = setTimeout(function(){
+  var tid = setTimeout(function() {
     cleanup(); showLoading(false);
     alert('요청 시간이 초과됐어요. 다시 시도해주세요.');
   }, 20000);
-  function cleanup(){
+  function cleanup() {
     clearTimeout(tid);
     delete window[id];
-    if(el.parentNode) el.parentNode.removeChild(el);
+    if (el.parentNode) el.parentNode.removeChild(el);
   }
-  window[id] = function(data){ cleanup(); showLoading(false); onSuccess(data); };
-  el.onerror  = function(){ cleanup(); showLoading(false); alert('네트워크 오류가 발생했어요.'); };
-  el.src = url + (url.indexOf('?')>=0?'&':'?') + 'callback=' + id;
+  window[id] = function(data) { cleanup(); showLoading(false); cb(data); };
+  el.onerror = function() { cleanup(); showLoading(false); alert('네트워크 오류가 발생했어요.'); };
+  el.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + id;
   document.head.appendChild(el);
 }
 
-function apiGet(action, params, cb){
+function apiGet(action, params, cb) {
   showLoading(true);
   var url = API + '?action=' + encodeURIComponent(action);
-  if(params) Object.keys(params).forEach(function(k){ url += '&'+k+'='+encodeURIComponent(params[k]); });
+  if (params) {
+    Object.keys(params).forEach(function(k) {
+      url += '&' + k + '=' + encodeURIComponent(params[k]);
+    });
+  }
   jsonp(url, cb);
 }
 
-function apiPost(action, body, cb){
+function apiPost(action, body, cb) {
   showLoading(true);
   body.action = action;
-  /* data 파라미터에 JSON을 담아 GET으로 전송 */
-  var url = API + '?action=' + encodeURIComponent(action)
-                + '&data='   + encodeURIComponent(JSON.stringify(body));
+  var url = API + '?action=' + encodeURIComponent(action) + '&data=' + encodeURIComponent(JSON.stringify(body));
   jsonp(url, cb);
 }
 
-/* ══════════════════════════════════════════
-   로딩
-══════════════════════════════════════════ */
-function showLoading(on, msg){
+function showLoading(on, msg) {
   var el = document.getElementById('loading');
   document.getElementById('loading-msg').textContent = msg || '처리 중...';
-  on ? el.classList.remove('hide') : el.classList.add('hide');
+  if (on) { el.classList.remove('hide'); } else { el.classList.add('hide'); }
 }
 
-/* ══════════════════════════════════════════
-   초기화
-══════════════════════════════════════════ */
-window.addEventListener('load', function(){
+/* 초기화 */
+window.addEventListener('load', function() {
   initDate();
-  apiGet('getInit', null, function(res){
+  apiGet('getInit', null, function(res) {
     ADMIN_PIN = res.pin      || '0000';
     DEADLINE  = res.deadline || '09:30';
     staffList = res.staff    || [];
     buildVoteMap(res.votes   || []);
-    /* 오늘 식단 표시 */
-    renderMenu(res.menu || '', todayStr());
+    renderMenu(res.menu || '', voteDate);
     restoreSession();
   });
 });
 
-/* ══════════════════════════════════════════
-   투표 날짜 변경
-══════════════════════════════════════════ */
-function onVoteDateChange(){
-  var date = document.getElementById('user-vote-date').value || todayStr();
-  voteDate = date;
-  updateMenuDateLabel(date);
-  /* 해당 날짜 식단 + 투표현황 로드 */
-  apiGet('getAdmin', {date:date}, function(res){
-    staffList = res.staff || staffList;
-    buildVoteMap(res.votes || []);
-    /* 해당 날짜 식단 조회 */
-    apiGet('getMenu', {date:date}, function(mres){
-      renderMenu(mres.menu || '', date);
-      /* 투표 폼 상태 갱신 */
-      if(loggedId){
-        if(voteMap[loggedId]){
-          mealPick = voteMap[loggedId];
-          pickMeal(mealPick);
-          document.getElementById('user-form-card').style.display    ='none';
-          document.getElementById('user-submit-result').style.display='block';
-          renderUserSummary();
-        } else {
-          mealPick = null;
-          document.getElementById('c-yes').className='cbtn';
-          document.getElementById('c-no').className ='cbtn';
-          document.getElementById('user-form-card').style.display    ='block';
-          document.getElementById('user-submit-result').style.display='none';
-          /* 오늘이 아닌 날짜는 마감 체크 안 함 */
-          if(date === todayStr()){
-            checkDeadline();
-          } else {
-            document.getElementById('user-submit-btn').disabled=false;
-            document.getElementById('deadline-passed').style.display='none';
-          }
-        }
-      }
-    });
-  });
-}
+function buildVoteMap(votes) {
   voteMap = {};
-  (votes||[]).forEach(function(v){ voteMap[v.id]=v.vote; });
+  (votes || []).forEach(function(v) { voteMap[v.id] = v.vote; });
 }
 
-/* ══════════════════════════════════════════
-   날짜
-══════════════════════════════════════════ */
-function todayStr(){
-  var n=new Date(); return n.getFullYear()+'-'+pad(n.getMonth()+1)+'-'+pad(n.getDate());
+/* 날짜 */
+function todayStr() {
+  var n = new Date();
+  return n.getFullYear() + '-' + pad(n.getMonth()+1) + '-' + pad(n.getDate());
 }
-function pad(v){ return String(v).padStart(2,'0'); }
-function initDate(){
+function pad(v) { return String(v).padStart(2, '0'); }
+
+function initDate() {
   var ymd = todayStr();
   voteDate = ymd;
   document.getElementById('admin-date').value      = ymd;
   document.getElementById('menu-date-input').value = ymd;
   document.getElementById('user-vote-date').value  = ymd;
   document.getElementById('user-date-chip').textContent =
-    new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+    new Date().toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric', weekday:'long'});
   updateMenuDateLabel(ymd);
 }
-function updateMenuDateLabel(ymd){
-  var d   = new Date(ymd);
-  var lbl = (d.getMonth()+1)+'월 '+d.getDate()+'일';
+
+function updateMenuDateLabel(ymd) {
+  var d   = new Date(ymd + 'T00:00:00');
+  var lbl = (d.getMonth()+1) + '월 ' + d.getDate() + '일';
   var el  = document.getElementById('user-menu-date-label');
-  if(el) el.textContent = lbl;
+  if (el) el.textContent = lbl;
 }
-function isPastDeadline(){
-  var p=DEADLINE.split(':'), n=new Date();
-  return n.getHours()>+p[0]||(n.getHours()===+p[0]&&n.getMinutes()>=+p[1]);
+
+function isPastDeadline() {
+  var p = DEADLINE.split(':');
+  var n = new Date();
+  return n.getHours() > +p[0] || (n.getHours() === +p[0] && n.getMinutes() >= +p[1]);
 }
-/* ══════════════════════════════════════════
-   세션 복원
-══════════════════════════════════════════ */
-function restoreSession(){
+
+/* 날짜 변경 */
+function onVoteDateChange() {
+  var date = document.getElementById('user-vote-date').value || todayStr();
+  voteDate = date;
+  updateMenuDateLabel(date);
+  mealPick = null;
+  document.getElementById('c-yes').className = 'cbtn';
+  document.getElementById('c-no').className  = 'cbtn';
+  document.getElementById('user-form-card').style.display    = 'none';
+  document.getElementById('user-submit-result').style.display = 'none';
+
+  apiGet('getMenu', {date: date}, function(mres) {
+    renderMenu(mres.menu || '', date);
+  });
+
+  if (loggedId) {
+    apiGet('getAdmin', {date: date}, function(res) {
+      staffList = res.staff || staffList;
+      buildVoteMap(res.votes || []);
+      if (voteMap[loggedId]) {
+        mealPick = voteMap[loggedId];
+        pickMeal(mealPick);
+        document.getElementById('user-form-card').style.display    = 'none';
+        document.getElementById('user-submit-result').style.display = 'block';
+        renderUserSummary();
+      } else {
+        document.getElementById('user-form-card').style.display = 'block';
+        if (date === todayStr()) {
+          checkDeadline();
+        } else {
+          document.getElementById('user-submit-btn').disabled = false;
+          document.getElementById('deadline-passed').style.display = 'none';
+        }
+      }
+    });
+  }
+}
+
+/* 세션 복원 */
+function restoreSession() {
   var sid  = localStorage.getItem(LS_ID);
   var sdt  = localStorage.getItem(LS_DATE);
   var svt  = localStorage.getItem(LS_VOTE);
   var tday = todayStr();
-  if(!sid) return;
-  var found = staffList.find(function(s){ return s.id===sid&&s.active; });
-  if(!found){ localStorage.removeItem(LS_ID); return; }
+  if (!sid) return;
+  var found = staffList.find(function(s) { return s.id === sid && s.active; });
+  if (!found) { localStorage.removeItem(LS_ID); return; }
   loggedId = sid;
   showLoggedIn(found);
-  if(sdt===tday && svt){
-    mealPick=svt; voteMap[sid]=svt; pickMeal(svt);
-    document.getElementById('user-form-card').style.display    ='none';
-    document.getElementById('user-submit-result').style.display='block';
+  if (sdt === tday && svt) {
+    mealPick = svt; voteMap[sid] = svt; pickMeal(svt);
+    document.getElementById('user-form-card').style.display     = 'none';
+    document.getElementById('user-submit-result').style.display = 'block';
     renderUserSummary();
   } else {
-    if(sdt!==tday){ localStorage.removeItem(LS_VOTE); localStorage.removeItem(LS_DATE); }
-    if(voteMap[sid]){
-      mealPick=voteMap[sid];
-      localStorage.setItem(LS_VOTE,mealPick); localStorage.setItem(LS_DATE,tday);
+    if (sdt !== tday) { localStorage.removeItem(LS_VOTE); localStorage.removeItem(LS_DATE); }
+    if (voteMap[sid]) {
+      mealPick = voteMap[sid];
+      localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, tday);
       pickMeal(mealPick);
-      document.getElementById('user-form-card').style.display    ='none';
-      document.getElementById('user-submit-result').style.display='block';
+      document.getElementById('user-form-card').style.display     = 'none';
+      document.getElementById('user-submit-result').style.display = 'block';
       renderUserSummary();
     } else {
-      document.getElementById('user-form-card').style.display='block';
+      document.getElementById('user-form-card').style.display = 'block';
       checkDeadline();
     }
   }
 }
 
-function showLoggedIn(s){
-  document.getElementById('login-card').style.display    ='none';
-  document.getElementById('loggedin-card').style.display ='block';
+function showLoggedIn(s) {
+  document.getElementById('login-card').style.display    = 'none';
+  document.getElementById('loggedin-card').style.display = 'block';
   document.getElementById('u-avatar').textContent = s.name[0];
-  document.getElementById('u-name').textContent   = s.name+' 님';
-  document.getElementById('u-empid').textContent  = '사번 '+s.id;
+  document.getElementById('u-name').textContent   = s.name + ' 님';
+  document.getElementById('u-empid').textContent  = '사번 ' + s.id;
 }
 
-function doLogout(){
+function doLogout() {
   localStorage.removeItem(LS_ID); localStorage.removeItem(LS_VOTE); localStorage.removeItem(LS_DATE);
-  loggedId=''; mealPick=null;
-  document.getElementById('login-card').style.display        ='block';
-  document.getElementById('loggedin-card').style.display     ='none';
-  document.getElementById('user-form-card').style.display    ='none';
-  document.getElementById('user-submit-result').style.display='none';
-  document.getElementById('empid-inp').value='';
-  document.getElementById('user-login-err').style.display='none';
+  loggedId = ''; mealPick = null;
+  document.getElementById('login-card').style.display         = 'block';
+  document.getElementById('loggedin-card').style.display      = 'none';
+  document.getElementById('user-form-card').style.display     = 'none';
+  document.getElementById('user-submit-result').style.display = 'none';
+  document.getElementById('empid-inp').value = '';
+  document.getElementById('user-login-err').style.display = 'none';
 }
 
-/* ══════════════════════════════════════════
-   페이지 전환
-══════════════════════════════════════════ */
-function showPage(id){
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
+/* 페이지 전환 */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('pin-overlay').classList.remove('on');
-  document.getElementById('page-'+id).classList.add('on');
-  if(id==='admin') loadAdmin();
-  if(id==='staff') loadStaff();
+  document.getElementById('page-' + id).classList.add('on');
+  if (id === 'admin') loadAdmin();
+  if (id === 'staff') loadStaff();
 }
-function setTab(btn){
-  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+function setTab(btn) {
+  document.querySelectorAll('.ntab').forEach(function(t) { t.classList.remove('on'); });
   btn.classList.add('on');
 }
-function navUser(btn){ adminUnlocked=false; setTab(btn); showPage('user'); }
-function navPage(id,btn){ setTab(btn); showPage(id); }
-function navAdmin(id,btn){
+function navUser(btn) { adminUnlocked = false; setTab(btn); showPage('user'); }
+function navPage(id, btn) { setTab(btn); showPage(id); }
+function navAdmin(id, btn) {
   setTab(btn);
-  if(adminUnlocked){ showPage(id); return; }
-  pendingPage=id;
-  pinBuf=''; updateDots();
-  document.getElementById('pin-err').textContent='';
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
+  if (adminUnlocked) { showPage(id); return; }
+  pendingPage = id;
+  pinBuf = ''; updateDots();
+  document.getElementById('pin-err').textContent = '';
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('pin-overlay').classList.add('on');
 }
 
-/* ══════════════════════════════════════════
-   PIN
-══════════════════════════════════════════ */
-function pinPress(v){
-  if(v==='cancel'){
+/* PIN */
+function pinPress(v) {
+  if (v === 'cancel') {
     document.getElementById('pin-overlay').classList.remove('on');
-    adminUnlocked=false; setTab(document.getElementById('tab-user')); showPage('user'); return;
+    adminUnlocked = false;
+    setTab(document.getElementById('tab-user'));
+    showPage('user');
+    return;
   }
-  if(v==='back'){ pinBuf=pinBuf.slice(0,-1); updateDots(); return; }
-  if(pinBuf.length>=4) return;
-  pinBuf+=v; updateDots();
-  if(pinBuf.length===4){
-    if(pinBuf===ADMIN_PIN){
-      adminUnlocked=true;
+  if (v === 'back') { pinBuf = pinBuf.slice(0, -1); updateDots(); return; }
+  if (pinBuf.length >= 4) return;
+  pinBuf += v; updateDots();
+  if (pinBuf.length === 4) {
+    if (pinBuf === ADMIN_PIN) {
+      adminUnlocked = true;
       document.getElementById('pin-overlay').classList.remove('on');
       showPage(pendingPage);
     } else {
-      document.getElementById('pin-err').textContent='비밀번호가 틀렸습니다.';
-      setTimeout(function(){ pinBuf=''; updateDots(); document.getElementById('pin-err').textContent=''; },700);
+      document.getElementById('pin-err').textContent = '비밀번호가 틀렸습니다.';
+      setTimeout(function() { pinBuf = ''; updateDots(); document.getElementById('pin-err').textContent = ''; }, 700);
     }
   }
 }
-function updateDots(){ for(var i=0;i<4;i++) document.getElementById('pd'+i).classList.toggle('filled',i<pinBuf.length); }
+function updateDots() {
+  for (var i = 0; i < 4; i++) {
+    document.getElementById('pd' + i).classList.toggle('filled', i < pinBuf.length);
+  }
+}
 
-/* ══════════════════════════════════════════
-   로그인
-══════════════════════════════════════════ */
-function doLogin(){
-  var v=document.getElementById('empid-inp').value.trim();
-  document.getElementById('user-login-err').style.display='none';
-  var found=staffList.find(function(s){ return s.id===v&&s.active; });
-  if(found){
-    loggedId=v; localStorage.setItem(LS_ID,v);
+/* 로그인 */
+function doLogin() {
+  var v = document.getElementById('empid-inp').value.trim();
+  document.getElementById('user-login-err').style.display = 'none';
+  var found = staffList.find(function(s) { return s.id === v && s.active; });
+  if (found) {
+    loggedId = v; localStorage.setItem(LS_ID, v);
     showLoggedIn(found);
-    if(voteMap[v]){
-      mealPick=voteMap[v];
-      localStorage.setItem(LS_VOTE,mealPick); localStorage.setItem(LS_DATE,todayStr());
+    if (voteMap[v]) {
+      mealPick = voteMap[v];
+      localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, todayStr());
       pickMeal(mealPick);
-      document.getElementById('user-form-card').style.display    ='none';
-      document.getElementById('user-submit-result').style.display='block';
+      document.getElementById('user-form-card').style.display     = 'none';
+      document.getElementById('user-submit-result').style.display = 'block';
       renderUserSummary();
     } else {
-      document.getElementById('user-form-card').style.display='block';
+      document.getElementById('user-form-card').style.display = 'block';
       checkDeadline();
     }
-  } else { document.getElementById('user-login-err').style.display='flex'; }
+  } else {
+    document.getElementById('user-login-err').style.display = 'flex';
+  }
 }
-document.getElementById('empid-inp').addEventListener('keydown',function(e){ if(e.key==='Enter') doLogin(); });
-function checkDeadline(){
-  var past=isPastDeadline();
-  document.getElementById('user-submit-btn').disabled=past;
-  document.getElementById('deadline-passed').style.display=past?'flex':'none';
+document.getElementById('empid-inp').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+
+function checkDeadline() {
+  var past = isPastDeadline();
+  document.getElementById('user-submit-btn').disabled = past;
+  document.getElementById('deadline-passed').style.display = past ? 'flex' : 'none';
 }
 
-/* ══════════════════════════════════════════
-   투표
-══════════════════════════════════════════ */
-function pickMeal(t){
-  mealPick=t;
-  document.getElementById('c-yes').className='cbtn'+(t==='yes'?' cy':'');
-  document.getElementById('c-no').className ='cbtn'+(t==='no' ?' cn':'');
-  document.getElementById('choice-warn').style.display='none';
+/* 투표 */
+function pickMeal(t) {
+  mealPick = t;
+  document.getElementById('c-yes').className = 'cbtn' + (t === 'yes' ? ' cy' : '');
+  document.getElementById('c-no').className  = 'cbtn' + (t === 'no'  ? ' cn' : '');
+  document.getElementById('choice-warn').style.display = 'none';
 }
-function submitVote(){
-  if(!mealPick){ document.getElementById('choice-warn').style.display='flex'; return; }
-  var found=staffList.find(function(s){ return s.id===loggedId; });
-  var date = voteDate || todayStr();
-  apiPost('submitVote',{date:date,id:loggedId,name:found?found.name:'',vote:mealPick},function(res){
-    if(!res||res.error){ alert('저장 실패: '+(res?res.error:'오류')); return; }
-    voteMap[loggedId]=mealPick;
-    /* 오늘 투표만 localStorage에 저장 */
-    if(date===todayStr()){
-      localStorage.setItem(LS_VOTE,mealPick);
-      localStorage.setItem(LS_DATE,todayStr());
+
+function submitVote() {
+  if (!mealPick) { document.getElementById('choice-warn').style.display = 'flex'; return; }
+  var found = staffList.find(function(s) { return s.id === loggedId; });
+  var date  = voteDate || todayStr();
+  apiPost('submitVote', {date: date, id: loggedId, name: found ? found.name : '', vote: mealPick}, function(res) {
+    if (!res || res.error) { alert('저장 실패: ' + (res ? res.error : '오류')); return; }
+    voteMap[loggedId] = mealPick;
+    if (date === todayStr()) {
+      localStorage.setItem(LS_VOTE, mealPick);
+      localStorage.setItem(LS_DATE, todayStr());
     }
-    document.getElementById('user-form-card').style.display    ='none';
-    document.getElementById('user-submit-result').style.display='block';
+    document.getElementById('user-form-card').style.display     = 'none';
+    document.getElementById('user-submit-result').style.display = 'block';
     renderUserSummary();
   });
 }
-function editVote(){
-  document.getElementById('user-submit-result').style.display='none';
-  document.getElementById('user-form-card').style.display    ='block';
+
+function editVote() {
+  document.getElementById('user-submit-result').style.display = 'none';
+  document.getElementById('user-form-card').style.display     = 'block';
 }
 
-/* ══════════════════════════════════════════
-   집계
-══════════════════════════════════════════ */
-function calcStats(){
-  var active =staffList.filter(function(s){ return s.active; });
-  var meal   =active.filter(function(s){ return voteMap[s.id]==='yes'; });
-  var noMeal =active.filter(function(s){ return voteMap[s.id]==='no';  });
-  var pending=active.filter(function(s){ return !voteMap[s.id]; });
-  var rate   =active.length>0?Math.round((meal.length+noMeal.length)/active.length*1000)/10:0;
-  return {total:active.length,meal:meal,noMeal:noMeal,pending:pending,rate:rate};
-}
-function renderUserSummary(){
-  var s=calcStats();
-  document.getElementById('us-meal').textContent   =s.meal.length;
-  document.getElementById('us-pending').textContent=s.pending.length;
-  document.getElementById('us-rate').textContent   =s.rate+'%';
-  document.getElementById('us-bar').style.width    =s.rate+'%';
-  document.getElementById('us-list').innerHTML=s.meal.map(function(st){
-    return '<li><span class="nn">'+escH(st.name)+'</span><span class="nd">사번 '+escH(st.id)+'</span><span class="badge bg">식사함</span></li>';
-  }).join('')||'<li style="color:var(--g4);font-size:13px">식사 예정자가 없습니다.</li>';
+/* 집계 */
+function calcStats() {
+  var active  = staffList.filter(function(s) { return s.active; });
+  var meal    = active.filter(function(s) { return voteMap[s.id] === 'yes'; });
+  var noMeal  = active.filter(function(s) { return voteMap[s.id] === 'no'; });
+  var pending = active.filter(function(s) { return !voteMap[s.id]; });
+  var rate    = active.length > 0 ? Math.round((meal.length + noMeal.length) / active.length * 1000) / 10 : 0;
+  return {total: active.length, meal: meal, noMeal: noMeal, pending: pending, rate: rate};
 }
 
-/* ══════════════════════════════════════════
-   관리 탭
-══════════════════════════════════════════ */
-function loadAdmin(){
-  var date=document.getElementById('admin-date').value||todayStr();
-  apiGet('getAdmin',{date:date},function(res){
-    staffList=res.staff||staffList; buildVoteMap(res.votes||[]); renderAdmin();
+function renderUserSummary() {
+  var s = calcStats();
+  document.getElementById('us-meal').textContent    = s.meal.length;
+  document.getElementById('us-pending').textContent = s.pending.length;
+  document.getElementById('us-rate').textContent    = s.rate + '%';
+  document.getElementById('us-bar').style.width     = s.rate + '%';
+  document.getElementById('us-list').innerHTML = s.meal.map(function(st) {
+    return '<li><span class="nn">' + escH(st.name) + '</span><span class="nd">사번 ' + escH(st.id) + '</span><span class="badge bg">식사함</span></li>';
+  }).join('') || '<li style="color:var(--g4);font-size:13px">식사 예정자가 없습니다.</li>';
+}
+
+/* 관리 탭 */
+function loadAdmin() {
+  var date = document.getElementById('admin-date').value || todayStr();
+  apiGet('getAdmin', {date: date}, function(res) {
+    staffList = res.staff || staffList;
+    buildVoteMap(res.votes || []);
+    renderAdmin();
   });
 }
-function renderAdmin(){
-  var s=calcStats();
-  document.getElementById('a-total').textContent  =s.total;
-  document.getElementById('a-meal').textContent   =s.meal.length;
-  document.getElementById('a-no').textContent     =s.noMeal.length;
-  document.getElementById('a-pending').textContent=s.pending.length;
-  document.getElementById('a-rate').textContent   =s.rate+'%';
-  document.getElementById('a-bar').style.width    =s.rate+'%';
-  document.getElementById('a-meal-badge').innerHTML   ='<i class="ti ti-users"></i> '+s.meal.length+'명';
-  document.getElementById('a-no-badge').innerHTML     ='<i class="ti ti-x"></i> '+s.noMeal.length+'명';
-  document.getElementById('a-pending-badge').innerHTML='<i class="ti ti-question-mark"></i> '+s.pending.length+'명';
-  document.getElementById('admin-meal-ul').innerHTML=s.meal.map(function(st){
-    return '<li><span class="nn">'+escH(st.name)+'</span><span class="nd">사번 '+escH(st.id)+'</span><span class="badge bg">식사함</span></li>';
-  }).join('')||'<li style="color:var(--g4);font-size:13px">해당 없음</li>';
-  document.getElementById('admin-no-ul').innerHTML=s.noMeal.map(function(st){
-    return '<li><span class="nn">'+escH(st.name)+'</span><span class="nd">사번 '+escH(st.id)+'</span><span class="badge br">식사 안 함</span></li>';
-  }).join('')||'<li style="color:var(--g4);font-size:13px">해당 없음</li>';
-  document.getElementById('admin-pending-ul').innerHTML=s.pending.map(function(st){
-    return '<li><span class="nn">'+escH(st.name)+'</span><span class="nd">사번 '+escH(st.id)+'</span><span class="badge bgr">미응답</span></li>';
-  }).join('')||'<li style="color:var(--g4);font-size:13px">모두 응답 완료 🎉</li>';
-}
-function copyNotice(){
-  var s=calcStats();
-  var names=s.pending.map(function(st){ return st.name; }).join(', ')||'없음';
-  var msg='금일 점심 식수 조사 마감 전입니다. 미응답자는 '+DEADLINE+'까지 식사 여부를 등록해 주세요.\n미응답: '+names;
-  navigator.clipboard.writeText(msg).then(function(){
-    var ok=document.getElementById('copy-ok');
-    ok.style.display='flex'; setTimeout(function(){ ok.style.display='none'; },2500);
-  }).catch(function(){ alert(msg); });
+
+function renderAdmin() {
+  var s = calcStats();
+  document.getElementById('a-total').textContent   = s.total;
+  document.getElementById('a-meal').textContent    = s.meal.length;
+  document.getElementById('a-no').textContent      = s.noMeal.length;
+  document.getElementById('a-pending').textContent = s.pending.length;
+  document.getElementById('a-rate').textContent    = s.rate + '%';
+  document.getElementById('a-bar').style.width     = s.rate + '%';
+  document.getElementById('a-meal-badge').innerHTML    = '<i class="ti ti-users"></i> ' + s.meal.length + '명';
+  document.getElementById('a-no-badge').innerHTML      = '<i class="ti ti-x"></i> ' + s.noMeal.length + '명';
+  document.getElementById('a-pending-badge').innerHTML = '<i class="ti ti-question-mark"></i> ' + s.pending.length + '명';
+  document.getElementById('admin-meal-ul').innerHTML = s.meal.map(function(st) {
+    return '<li><span class="nn">' + escH(st.name) + '</span><span class="nd">사번 ' + escH(st.id) + '</span><span class="badge bg">식사함</span></li>';
+  }).join('') || '<li style="color:var(--g4);font-size:13px">해당 없음</li>';
+  document.getElementById('admin-no-ul').innerHTML = s.noMeal.map(function(st) {
+    return '<li><span class="nn">' + escH(st.name) + '</span><span class="nd">사번 ' + escH(st.id) + '</span><span class="badge br">식사 안 함</span></li>';
+  }).join('') || '<li style="color:var(--g4);font-size:13px">해당 없음</li>';
+  document.getElementById('admin-pending-ul').innerHTML = s.pending.map(function(st) {
+    return '<li><span class="nn">' + escH(st.name) + '</span><span class="nd">사번 ' + escH(st.id) + '</span><span class="badge bgr">미응답</span></li>';
+  }).join('') || '<li style="color:var(--g4);font-size:13px">모두 응답 완료 🎉</li>';
 }
 
-/* ══════════════════════════════════════════
-   식단표 탭
-══════════════════════════════════════════ */
-function loadMenuForDate(){
-  var date=document.getElementById('menu-date-input').value;
-  apiGet('getMenu',{date:date},function(res){
-    document.getElementById('menu-ta').value=res.menu||''; updatePreview();
+function copyNotice() {
+  var s     = calcStats();
+  var names = s.pending.map(function(st) { return st.name; }).join(', ') || '없음';
+  var msg   = '금일 점심 식수 조사 마감 전입니다. 미응답자는 ' + DEADLINE + '까지 식사 여부를 등록해 주세요.\n미응답: ' + names;
+  navigator.clipboard.writeText(msg).then(function() {
+    var ok = document.getElementById('copy-ok');
+    ok.style.display = 'flex';
+    setTimeout(function() { ok.style.display = 'none'; }, 2500);
+  }).catch(function() { alert(msg); });
+}
+
+/* 식단표 탭 */
+function loadMenuForDate() {
+  var date = document.getElementById('menu-date-input').value;
+  apiGet('getMenu', {date: date}, function(res) {
+    document.getElementById('menu-ta').value = res.menu || '';
+    updatePreview();
   });
 }
-function renderMenu(t, date){
-  var lines=(t||'').split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
-  var el=document.getElementById('ui-menu-display');
-  if(!lines.length){
-    el.innerHTML='<div style="padding:16px;text-align:center;font-size:14px;color:var(--g4)">등록된 식단표가 없습니다.</div>';
+
+function renderMenu(t, date) {
+  var lines = (t || '').split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
+  var el    = document.getElementById('ui-menu-display');
+  if (!lines.length) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;font-size:14px;color:var(--g4)">등록된 식단표가 없습니다.</div>';
   } else {
-    el.innerHTML=lines.map(function(l,i){
-      var br=i===0?'var(--rx) var(--rx) 0 0':i===lines.length-1?'0 0 var(--rx) var(--rx)':'0';
-      return '<div class="mrow" style="border-radius:'+br+'">'+escH(l)+'</div>';
+    el.innerHTML = lines.map(function(l, i) {
+      var br = i === 0 ? 'var(--rx) var(--rx) 0 0' : i === lines.length-1 ? '0 0 var(--rx) var(--rx)' : '0';
+      return '<div class="mrow" style="border-radius:' + br + '">' + escH(l) + '</div>';
     }).join('');
   }
-  if(date) updateMenuDateLabel(date);
+  if (date) updateMenuDateLabel(date);
 }
-function saveMenu(){
-  var date=document.getElementById('menu-date-input').value;
-  var menu=document.getElementById('menu-ta').value.trim();
-  if(!menu){ alert('메뉴를 입력해주세요.'); return; }
-  apiPost('saveMenu',{date:date,menu:menu},function(res){
-    if(!res||res.error){ alert('저장 실패'); return; }
-    var ok=document.getElementById('menu-save-ok');
-    ok.style.display='flex'; setTimeout(function(){ ok.style.display='none'; },2000);
-    updatePreview(); if(date===todayStr()) renderMenu(menu);
+
+function saveMenu() {
+  var date = document.getElementById('menu-date-input').value;
+  var menu = document.getElementById('menu-ta').value.trim();
+  if (!menu) { alert('메뉴를 입력해주세요.'); return; }
+  apiPost('saveMenu', {date: date, menu: menu}, function(res) {
+    if (!res || res.error) { alert('저장 실패'); return; }
+    var ok = document.getElementById('menu-save-ok');
+    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 2000);
+    updatePreview();
+    if (date === todayStr()) renderMenu(menu, date);
   });
 }
-function deleteMenu(){
-  var date=document.getElementById('menu-date-input').value;
-  if(!confirm(date+' 식단을 삭제할까요?')) return;
-  apiPost('deleteMenu',{date:date},function(res){
-    if(!res||res.error){ alert('삭제 실패'); return; }
-    document.getElementById('menu-ta').value=''; updatePreview();
-    var ok=document.getElementById('menu-delete-ok');
-    ok.style.display='flex'; setTimeout(function(){ ok.style.display='none'; },2000);
-    if(date===todayStr()) renderMenu('');
+
+function deleteMenu() {
+  var date = document.getElementById('menu-date-input').value;
+  if (!confirm(date + ' 식단을 삭제할까요?')) return;
+  apiPost('deleteMenu', {date: date}, function(res) {
+    if (!res || res.error) { alert('삭제 실패'); return; }
+    document.getElementById('menu-ta').value = '';
+    updatePreview();
+    var ok = document.getElementById('menu-delete-ok');
+    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 2000);
+    if (date === todayStr()) renderMenu('', date);
   });
 }
-function updatePreview(){
-  var lines=document.getElementById('menu-ta').value.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
-  var el=document.getElementById('menu-preview-list');
-  if(!lines.length){ el.innerHTML='<div style="padding:14px;text-align:center;font-size:13px;color:var(--g4)">메뉴를 입력하면 여기에 표시됩니다.</div>'; return; }
-  el.innerHTML=lines.map(function(l,i){
-    var br=i===0?'var(--rx) var(--rx) 0 0':i===lines.length-1?'0 0 var(--rx) var(--rx)':'0';
-    return '<div class="mrow" style="border-radius:'+br+'">'+escH(l)+'</div>';
+
+function updatePreview() {
+  var lines = document.getElementById('menu-ta').value.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
+  var el    = document.getElementById('menu-preview-list');
+  if (!lines.length) {
+    el.innerHTML = '<div style="padding:14px;text-align:center;font-size:13px;color:var(--g4)">메뉴를 입력하면 여기에 표시됩니다.</div>';
+    return;
+  }
+  el.innerHTML = lines.map(function(l, i) {
+    var br = i === 0 ? 'var(--rx) var(--rx) 0 0' : i === lines.length-1 ? '0 0 var(--rx) var(--rx)' : '0';
+    return '<div class="mrow" style="border-radius:' + br + '">' + escH(l) + '</div>';
   }).join('');
 }
 
-/* 식단표 엑셀 파싱 (주간식단표 형식) */
-function handleMenuFile(inp){
-  if(!inp.files||!inp.files[0]) return;
-  loadXLSX(function(){
-    var reader=new FileReader();
-    reader.onload=function(e){
-      var wb  =XLSX.read(new Uint8Array(e.target.result),{type:'array',cellText:true,cellDates:true});
-      var ws  =wb.Sheets[wb.SheetNames[0]];
-      var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:false});
-      parsedMenus=[];
-      document.getElementById('menu-bulk-rows').innerHTML='';
-      var year=new Date().getFullYear(), headerRow=-1, colDates={};
+/* 식단표 엑셀 파싱 */
+function handleMenuFile(inp) {
+  if (!inp.files || !inp.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var wb   = XLSX.read(new Uint8Array(e.target.result), {type:'array', cellText:true, cellDates:true});
+    var ws   = wb.Sheets[wb.SheetNames[0]];
+    var rows = XLSX.utils.sheet_to_json(ws, {header:1, defval:'', raw:false});
+    parsedMenus = [];
+    document.getElementById('menu-bulk-rows').innerHTML = '';
+    var year = new Date().getFullYear(), headerRow = -1, colDates = {};
 
-      /* 헤더행: 월/화/수/목/금 + 숫자 3개 이상인 행 */
-      for(var i=0;i<rows.length;i++){
-        var cnt=0;
-        for(var j=0;j<rows[i].length;j++){
-          var c=String(rows[i][j]||'');
-          if((c.match(/[월화수목금]/)&&c.match(/\d+/))||c.match(/^\d{1,2}\/\d{1,2}$/)) cnt++;
-        }
-        if(cnt>=3){ headerRow=i; break; }
+    for (var i = 0; i < rows.length; i++) {
+      var cnt = 0;
+      for (var j = 0; j < rows[i].length; j++) {
+        var c = String(rows[i][j] || '');
+        if ((c.match(/[월화수목금]/) && c.match(/\d+/)) || c.match(/^\d{1,2}\/\d{1,2}$/)) cnt++;
       }
-      if(headerRow<0){ alert('날짜 행을 인식하지 못했어요. "월(6/29)" 형식이 3개 이상 있는 행이 필요합니다.'); return; }
+      if (cnt >= 3) { headerRow = i; break; }
+    }
 
-      /* 날짜 파싱 */
-      rows[headerRow].forEach(function(cell,j){
-        var c=String(cell||'').trim();
-        var m=c.match(/(\d{1,2})[\/\-](\d{1,2})/);
-        if(m){
-          var mon=+m[1], day=+m[2], y=year;
-          if(mon<new Date().getMonth()-2) y=year+1;
-          colDates[j]=y+'-'+pad(mon)+'-'+pad(day);
-        }
-      });
-      if(!Object.keys(colDates).length){ alert('날짜를 파싱하지 못했어요.'); return; }
+    if (headerRow < 0) { alert('날짜 행을 인식하지 못했어요. "월(6/29)" 형식이 3개 이상 있는 행이 필요합니다.'); return; }
 
-      /* 메뉴 행 수집 */
-      var menuRows=[];
-      for(var i=headerRow+1;i<rows.length;i++){
-        var f=String(rows[i][0]||'').trim();
-        if(f.match(/원산지|★|돼지|쇠고기|수산|위 메뉴|납품|알레르기|<|고등어|닭고기/)) break;
-        menuRows.push(rows[i]);
+    rows[headerRow].forEach(function(cell, j) {
+      var c = String(cell || '').trim();
+      var m = c.match(/(\d{1,2})[\/\-](\d{1,2})/);
+      if (m) {
+        var mon = +m[1], day = +m[2], y = year;
+        if (mon < new Date().getMonth() - 2) y = year + 1;
+        colDates[j] = y + '-' + pad(mon) + '-' + pad(day);
       }
+    });
 
-      /* 열별 메뉴 합치기 */
-      var tbody=document.getElementById('menu-bulk-rows');
-      Object.keys(colDates).sort(function(a,b){ return +a-+b; }).forEach(function(col){
-        var date=colDates[col], items=[];
-        menuRows.forEach(function(row){
-          var v=String(row[col]||'').trim();
-          if(!v||v.match(/^[중석조]\s*식$|^구분$|^메뉴$/)) return;
-          items.push(v);
-        });
-        if(!items.length) return;
-        parsedMenus.push({date:date,menu:items.join('\n')});
-        var tr=document.createElement('tr');
-        tr.innerHTML='<td>'+escH(date)+'</td><td>'+escH(items.join(', '))+'</td><td style="text-align:center"><span class="badge bg">인식됨</span></td>';
-        tbody.appendChild(tr);
+    if (!Object.keys(colDates).length) { alert('날짜를 파싱하지 못했어요.'); return; }
+
+    var menuRows = [];
+    for (var i = headerRow + 1; i < rows.length; i++) {
+      var f = String(rows[i][0] || '').trim();
+      if (f.match(/원산지|★|돼지|쇠고기|수산|위 메뉴|납품|알레르기|고등어|닭고기/)) break;
+      menuRows.push(rows[i]);
+    }
+
+    var tbody = document.getElementById('menu-bulk-rows');
+    Object.keys(colDates).sort(function(a, b) { return +a - +b; }).forEach(function(col) {
+      var date = colDates[col], items = [];
+      menuRows.forEach(function(row) {
+        var v = String(row[col] || '').trim();
+        if (!v || v.match(/^[중석조]\s*식$|^구분$|^메뉴$/)) return;
+        items.push(v);
       });
-      if(!parsedMenus.length){ alert('메뉴를 인식하지 못했어요.'); return; }
-      document.getElementById('menu-bulk-preview').style.display='block';
-      document.getElementById('menu-uz-title').textContent=inp.files[0].name+' ('+parsedMenus.length+'일 인식됨)';
-    };
-    reader.readAsArrayBuffer(inp.files[0]);
-  });
+      if (!items.length) return;
+      parsedMenus.push({date: date, menu: items.join('\n')});
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + escH(date) + '</td><td>' + escH(items.join(', ')) + '</td><td style="text-align:center"><span class="badge bg">인식됨</span></td>';
+      tbody.appendChild(tr);
+    });
+
+    if (!parsedMenus.length) { alert('메뉴를 인식하지 못했어요.'); return; }
+    document.getElementById('menu-bulk-preview').style.display = 'block';
+    document.getElementById('menu-uz-title').textContent = inp.files[0].name + ' (' + parsedMenus.length + '일 인식됨)';
+  };
+  reader.readAsArrayBuffer(inp.files[0]);
 }
-function saveAllMenus(){
-  if(!parsedMenus.length) return;
-  var i=0;
-  function next(){
-    if(i>=parsedMenus.length){ alert(i+'개 식단이 저장되었습니다.'); document.getElementById('menu-bulk-preview').style.display='none'; parsedMenus=[]; return; }
-    var item=parsedMenus[i++];
-    apiPost('saveMenu',{date:item.date,menu:item.menu},next);
+
+function saveAllMenus() {
+  if (!parsedMenus.length) return;
+  var i = 0;
+  function next() {
+    if (i >= parsedMenus.length) {
+      alert(i + '개 식단이 저장되었습니다.');
+      document.getElementById('menu-bulk-preview').style.display = 'none';
+      parsedMenus = [];
+      return;
+    }
+    var item = parsedMenus[i++];
+    apiPost('saveMenu', {date: item.date, menu: item.menu}, next);
   }
   next();
 }
 
-/* ══════════════════════════════════════════
-   직원 탭
-══════════════════════════════════════════ */
-function loadStaff(){
-  apiGet('getInit',null,function(res){ staffList=res.staff||[]; renderStaffList(); });
+/* 직원 탭 */
+function loadStaff() {
+  apiGet('getInit', null, function(res) { staffList = res.staff || []; renderStaffList(); });
 }
-function renderStaffList(){
-  var cnt=staffList.length;
-  document.getElementById('staff-count').innerHTML='<i class="ti ti-users"></i> '+cnt+'명';
-  var el=document.getElementById('staff-list-rows');
-  if(!cnt){ el.innerHTML='<div style="text-align:center;padding:20px;font-size:13px;color:var(--g4)">등록된 직원이 없습니다.</div>'; return; }
-  el.innerHTML=staffList.map(function(s){
+
+function renderStaffList() {
+  var cnt = staffList.length;
+  document.getElementById('staff-count').innerHTML = '<i class="ti ti-users"></i> ' + cnt + '명';
+  var el = document.getElementById('staff-list-rows');
+  if (!cnt) { el.innerHTML = '<div style="text-align:center;padding:20px;font-size:13px;color:var(--g4)">등록된 직원이 없습니다.</div>'; return; }
+  el.innerHTML = staffList.map(function(s) {
     return '<div class="srow">'
-      +'<div class="savt" style="'+(s.active?'':'background:var(--g1);color:var(--g4)')+'">'+escH(s.name[0])+'</div>'
-      +'<div class="sinf"><div class="sn" style="'+(s.active?'':'color:var(--g4)')+'">'+escH(s.name)+'</div><div class="sid">사번 '+escH(s.id)+'</div></div>'
-      +'<span class="badge '+(s.active?'bg':'bgr')+'">'+(s.active?'활성':'비활성')+'</span>'
-      +'<button class="btn bgh btn-sm" onclick="toggleStaff(\''+escH(s.id)+'\')" aria-label="상태 전환"><i class="ti ti-switch-horizontal"></i></button>'
-      +'</div>';
+      + '<div class="savt" style="' + (s.active ? '' : 'background:var(--g1);color:var(--g4)') + '">' + escH(s.name[0]) + '</div>'
+      + '<div class="sinf"><div class="sn" style="' + (s.active ? '' : 'color:var(--g4)') + '">' + escH(s.name) + '</div><div class="sid">사번 ' + escH(s.id) + '</div></div>'
+      + '<span class="badge ' + (s.active ? 'bg' : 'bgr') + '">' + (s.active ? '활성' : '비활성') + '</span>'
+      + '<button class="btn bgh btn-sm" onclick="toggleStaff(\'' + escH(s.id) + '\')" aria-label="상태 전환"><i class="ti ti-switch-horizontal"></i></button>'
+      + '</div>';
   }).join('');
 }
-function addStaff(){
-  var eid=document.getElementById('add-eid').value.trim();
-  var nm =document.getElementById('add-nm').value.trim();
-  document.getElementById('staff-add-warn').style.display='none';
-  document.getElementById('staff-dup-warn').style.display='none';
-  document.getElementById('staff-add-ok').style.display  ='none';
-  if(!eid||!nm){ document.getElementById('staff-add-warn').style.display='flex'; return; }
-  apiPost('addStaff',{id:eid,name:nm},function(res){
-    if(!res.ok){ document.getElementById('staff-dup-warn').style.display='flex'; return; }
-    document.getElementById('add-eid').value='';
-    document.getElementById('add-nm').value='';
-    var ok=document.getElementById('staff-add-ok');
-    ok.style.display='flex'; setTimeout(function(){ ok.style.display='none'; },2000);
-    loadStaff();
-  });
-}
-function toggleStaff(id){ apiPost('toggleStaff',{id:id},function(){ loadStaff(); }); }
 
-/* 직원 엑셀 파싱 */
-function handleStaffFile(inp){
-  if(!inp.files||!inp.files[0]) return;
-  loadXLSX(function(){
-    var reader=new FileReader();
-    reader.onload=function(e){
-      var wb  =XLSX.read(new Uint8Array(e.target.result),{type:'array'});
-      var ws  =wb.Sheets[wb.SheetNames[0]];
-      var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
-      parsedStaff=[];
-      var tbody=document.getElementById('staff-parse-rows');
-      tbody.innerHTML='';
-      var existIds={};
-      staffList.forEach(function(s){ existIds[s.id]=true; });
-      var dupCnt=0;
-      rows.forEach(function(r){
-        var eid=String(r[0]||'').trim();
-        var nm =String(r[1]||'').trim();
-        if(!eid||!nm) return;
-        if(eid==='사번'||eid==='번호'||nm==='이름'||nm==='성명') return;
-        if(eid.match(/[가-힣a-zA-Z]/)) return;
-        var isDup=!!existIds[eid];
-        if(isDup) dupCnt++;
-        parsedStaff.push({id:eid,name:nm,dup:isDup});
-        var tr=document.createElement('tr');
-        tr.innerHTML='<td>'+escH(eid)+'</td><td>'+escH(nm)+'</td><td style="text-align:center">'+(isDup?'<span class="badge bgr">중복</span>':'<span class="badge bg">신규</span>')+'</td>';
-        tbody.appendChild(tr);
-      });
-      document.getElementById('staff-upload-preview').style.display=parsedStaff.length?'block':'none';
-      document.getElementById('staff-uz-title').textContent=inp.files[0].name+' ('+parsedStaff.length+'명 인식됨)';
-      var warn=document.getElementById('staff-bulk-warn');
-      if(dupCnt>0){ warn.style.display='flex'; document.getElementById('staff-bulk-warn-msg').textContent=' '+dupCnt+'명은 이미 등록되어 건너뜁니다.'; }
-      else warn.style.display='none';
-      if(!parsedStaff.length) alert('직원 데이터를 인식하지 못했어요.\n사번(A열), 이름(B열) 형태인지 확인해주세요.');
-    };
-    reader.readAsArrayBuffer(inp.files[0]);
-  });
-}
-function saveAllStaff(){
-  var newList=parsedStaff.filter(function(s){ return !s.dup; });
-  if(!newList.length){ alert('추가할 신규 직원이 없습니다.'); return; }
-  apiPost('bulkStaff',{list:newList},function(res){
-    parsedStaff=[];
-    document.getElementById('staff-upload-preview').style.display='none';
-    document.getElementById('staff-file-inp').value='';
-    document.getElementById('staff-uz-title').textContent='파일을 클릭하거나 드래그하여 업로드';
-    var ok=document.getElementById('staff-bulk-ok');
-    document.getElementById('staff-bulk-ok-msg').textContent=' '+res.added+'명이 추가되었습니다.';
-    ok.style.display='flex'; setTimeout(function(){ ok.style.display='none'; },3000);
+function addStaff() {
+  var eid = document.getElementById('add-eid').value.trim();
+  var nm  = document.getElementById('add-nm').value.trim();
+  document.getElementById('staff-add-warn').style.display = 'none';
+  document.getElementById('staff-dup-warn').style.display = 'none';
+  document.getElementById('staff-add-ok').style.display   = 'none';
+  if (!eid || !nm) { document.getElementById('staff-add-warn').style.display = 'flex'; return; }
+  apiPost('addStaff', {id: eid, name: nm}, function(res) {
+    if (!res.ok) { document.getElementById('staff-dup-warn').style.display = 'flex'; return; }
+    document.getElementById('add-eid').value = '';
+    document.getElementById('add-nm').value  = '';
+    var ok = document.getElementById('staff-add-ok');
+    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 2000);
     loadStaff();
   });
 }
 
-/* ══════════════════════════════════════════
-   비밀번호 변경
-══════════════════════════════════════════ */
-function changePin(){
-  var cur=document.getElementById('pw-cur').value.trim();
-  var nw =document.getElementById('pw-new').value.trim();
-  var cf =document.getElementById('pw-confirm').value.trim();
-  var err=document.getElementById('pw-err'), ok=document.getElementById('pw-ok'), msg=document.getElementById('pw-err-msg');
-  err.style.display='none'; ok.style.display='none';
-  if(!cur||!nw||!cf){ msg.textContent=' 모든 항목을 입력해주세요.'; err.style.display='flex'; return; }
-  if(!/^\d{4}$/.test(nw)){ msg.textContent=' 새 비밀번호는 숫자 4자리여야 합니다.'; err.style.display='flex'; return; }
-  if(nw!==cf){ msg.textContent=' 새 비밀번호가 일치하지 않습니다.'; err.style.display='flex'; return; }
-  apiPost('changePin',{current:cur,newPin:nw},function(res){
-    if(!res.ok){ msg.textContent=' '+res.msg; err.style.display='flex'; return; }
-    ADMIN_PIN=nw;
-    document.getElementById('pw-cur').value='';
-    document.getElementById('pw-new').value='';
-    document.getElementById('pw-confirm').value='';
-    ok.style.display='flex'; setTimeout(function(){ ok.style.display='none'; },3000);
+function toggleStaff(id) { apiPost('toggleStaff', {id: id}, function() { loadStaff(); }); }
+
+function handleStaffFile(inp) {
+  if (!inp.files || !inp.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var wb   = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
+    var ws   = wb.Sheets[wb.SheetNames[0]];
+    var rows = XLSX.utils.sheet_to_json(ws, {header:1, defval:''});
+    parsedStaff = [];
+    var tbody = document.getElementById('staff-parse-rows');
+    tbody.innerHTML = '';
+    var existIds = {};
+    staffList.forEach(function(s) { existIds[s.id] = true; });
+    var dupCnt = 0;
+    rows.forEach(function(r) {
+      var eid = String(r[0] || '').trim();
+      var nm  = String(r[1] || '').trim();
+      if (!eid || !nm) return;
+      if (eid === '사번' || eid === '번호' || nm === '이름' || nm === '성명') return;
+      if (eid.match(/[가-힣a-zA-Z]/)) return;
+      var isDup = !!existIds[eid];
+      if (isDup) dupCnt++;
+      parsedStaff.push({id: eid, name: nm, dup: isDup});
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + escH(eid) + '</td><td>' + escH(nm) + '</td><td style="text-align:center">' + (isDup ? '<span class="badge bgr">중복</span>' : '<span class="badge bg">신규</span>') + '</td>';
+      tbody.appendChild(tr);
+    });
+    document.getElementById('staff-upload-preview').style.display = parsedStaff.length ? 'block' : 'none';
+    document.getElementById('staff-uz-title').textContent = inp.files[0].name + ' (' + parsedStaff.length + '명 인식됨)';
+    var warn = document.getElementById('staff-bulk-warn');
+    if (dupCnt > 0) { warn.style.display = 'flex'; document.getElementById('staff-bulk-warn-msg').textContent = ' ' + dupCnt + '명은 이미 등록되어 건너뜁니다.'; }
+    else warn.style.display = 'none';
+    if (!parsedStaff.length) alert('직원 데이터를 인식하지 못했어요.\n사번(A열), 이름(B열) 형태인지 확인해주세요.');
+  };
+  reader.readAsArrayBuffer(inp.files[0]);
+}
+
+function saveAllStaff() {
+  var newList = parsedStaff.filter(function(s) { return !s.dup; });
+  if (!newList.length) { alert('추가할 신규 직원이 없습니다.'); return; }
+  apiPost('bulkStaff', {list: newList}, function(res) {
+    parsedStaff = [];
+    document.getElementById('staff-upload-preview').style.display = 'none';
+    document.getElementById('staff-file-inp').value = '';
+    document.getElementById('staff-uz-title').textContent = '파일을 클릭하거나 드래그하여 업로드';
+    var ok = document.getElementById('staff-bulk-ok');
+    document.getElementById('staff-bulk-ok-msg').textContent = ' ' + res.added + '명이 추가되었습니다.';
+    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 3000);
+    loadStaff();
   });
 }
 
-/* ══════════════════════════════════════════
-   서식 다운로드
-══════════════════════════════════════════ */
-function downloadMenuTemplate(){
-  loadXLSX(function(){
-    var wb = XLSX.utils.book_new();
-    /* 현재 주 월~금 날짜 계산 */
-    var now   = new Date();
-    var day   = now.getDay(); /* 0=일, 1=월 ... */
-    var mon   = new Date(now); mon.setDate(now.getDate() - (day===0?6:day-1));
-    var days  = ['월','화','수','목','금'];
-    var dates = [];
-    for(var i=0;i<5;i++){
-      var d=new Date(mon); d.setDate(mon.getDate()+i);
-      dates.push({label:days[i]+'('+(d.getMonth()+1)+'/'+(d.getDate())+')', date:d});
-    }
-    /* 헤더 행 */
-    var header = ['구분'].concat(dates.map(function(d){ return d.label; }));
-    /* 메뉴 행 6개 */
-    var menuRows = [
-      ['흰밥','흰밥','흰밥','흰밥','흰밥'],
-      ['국(찌개)','국(찌개)','국(찌개)','국(찌개)','국(찌개)'],
-      ['주찬','주찬','주찬','주찬','주찬'],
-      ['부찬1','부찬1','부찬1','부찬1','부찬1'],
-      ['부찬2','부찬2','부찬2','부찬2','부찬2'],
-      ['김치','김치','김치','김치','김치'],
-    ];
-    var rows = [
-      ['주간식단표'],
-      ['지점명 : 정읍지사'],
-      header,
-    ];
-    menuRows.forEach(function(r){ rows.push(['중 식'].concat(r)); });
-
-    var ws = XLSX.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{wch:8},{wch:16},{wch:16},{wch:16},{wch:16},{wch:16}];
-    /* 제목 병합 */
-    ws['!merges'] = [
-      {s:{r:0,c:0},e:{r:0,c:5}},
-      {s:{r:1,c:0},e:{r:1,c:5}},
-    ];
-    XLSX.utils.book_append_sheet(wb, ws, '주간식단표');
-
-    /* 안내 시트 */
-    var guide = XLSX.utils.aoa_to_sheet([
-      ['식단표 업로드 안내'],
-      [],
-      ['※ 3행에 요일(날짜) 헤더가 있어야 합니다. 예: 월(6/29)'],
-      ['※ 4행부터 메뉴를 입력하세요.'],
-      ['※ "원산지", "★" 등으로 시작하는 행은 자동으로 제외됩니다.'],
-      ['※ 실제 주간식단표 파일을 그대로 업로드해도 됩니다.'],
-    ]);
-    XLSX.utils.book_append_sheet(wb, guide, '업로드 안내');
-    XLSX.writeFile(wb, '식단표_서식.xlsx');
+/* 비밀번호 변경 */
+function changePin() {
+  var cur = document.getElementById('pw-cur').value.trim();
+  var nw  = document.getElementById('pw-new').value.trim();
+  var cf  = document.getElementById('pw-confirm').value.trim();
+  var err = document.getElementById('pw-err');
+  var ok  = document.getElementById('pw-ok');
+  var msg = document.getElementById('pw-err-msg');
+  err.style.display = 'none'; ok.style.display = 'none';
+  if (!cur || !nw || !cf) { msg.textContent = ' 모든 항목을 입력해주세요.'; err.style.display = 'flex'; return; }
+  if (!/^\d{4}$/.test(nw)) { msg.textContent = ' 새 비밀번호는 숫자 4자리여야 합니다.'; err.style.display = 'flex'; return; }
+  if (nw !== cf) { msg.textContent = ' 새 비밀번호가 일치하지 않습니다.'; err.style.display = 'flex'; return; }
+  apiPost('changePin', {current: cur, newPin: nw}, function(res) {
+    if (!res.ok) { msg.textContent = ' ' + res.msg; err.style.display = 'flex'; return; }
+    ADMIN_PIN = nw;
+    document.getElementById('pw-cur').value = '';
+    document.getElementById('pw-new').value = '';
+    document.getElementById('pw-confirm').value = '';
+    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 3000);
   });
 }
-function downloadStaffTemplate(){
-  loadXLSX(function(){
-    var wb  = XLSX.utils.book_new();
-    var rows= [
-      ['사번','이름'],
-      ['001','홍길동'],
-      ['002','김영희'],
-      ['003','이철수'],
-    ];
-    var ws = XLSX.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{wch:12},{wch:14}];
-    XLSX.utils.book_append_sheet(wb, ws, '직원명단');
-    var guide = XLSX.utils.aoa_to_sheet([
-      ['직원명단 업로드 안내'],
-      [],
-      ['※ A열: 사번, B열: 이름 순서로 입력하세요.'],
-      ['※ 1행 헤더(사번/이름)는 자동으로 건너뜁니다.'],
-      ['※ 사번은 숫자만 입력하세요.'],
-      ['※ 이미 등록된 사번은 자동으로 건너뜁니다.'],
-    ]);
-    XLSX.utils.book_append_sheet(wb, guide, '업로드 안내');
-    XLSX.writeFile(wb, '직원명단_서식.xlsx');
-  });
-}
-function loadXLSX(cb){ cb(); } /* 이미 head에서 로드됨 */
-function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-/* Service Worker 등록 */
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('service-worker.js').catch(function(){});
+/* 서식 다운로드 */
+function downloadMenuTemplate() {
+  var wb   = XLSX.utils.book_new();
+  var now  = new Date();
+  var day  = now.getDay();
+  var mon  = new Date(now);
+  mon.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
+  var days = ['월','화','수','목','금'];
+  var headers = ['구분'];
+  for (var i = 0; i < 5; i++) {
+    var d = new Date(mon); d.setDate(mon.getDate() + i);
+    headers.push(days[i] + '(' + (d.getMonth()+1) + '/' + d.getDate() + ')');
+  }
+  var rows = [
+    ['주간식단표'],
+    ['지점명 : 정읍지사'],
+    headers,
+    ['중 식','흰밥','흰밥','흰밥','흰밥','흰밥'],
+    ['중 식','국(찌개)','국(찌개)','국(찌개)','국(찌개)','국(찌개)'],
+    ['중 식','주찬','주찬','주찬','주찬','주찬'],
+    ['중 식','부찬1','부찬1','부찬1','부찬1','부찬1'],
+    ['중 식','부찬2','부찬2','부찬2','부찬2','부찬2'],
+    ['중 식','김치','김치','김치','김치','김치'],
+  ];
+  var ws = XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols'] = [{wch:8},{wch:16},{wch:16},{wch:16},{wch:16},{wch:16}];
+  ws['!merges'] = [{s:{r:0,c:0},e:{r:0,c:5}},{s:{r:1,c:0},e:{r:1,c:5}}];
+  XLSX.utils.book_append_sheet(wb, ws, '주간식단표');
+  XLSX.writeFile(wb, '식단표_서식.xlsx');
+}
+
+function downloadStaffTemplate() {
+  var wb   = XLSX.utils.book_new();
+  var rows = [['사번','이름'],['001','홍길동'],['002','김영희'],['003','이철수']];
+  var ws   = XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols'] = [{wch:12},{wch:14}];
+  XLSX.utils.book_append_sheet(wb, ws, '직원명단');
+  XLSX.writeFile(wb, '직원명단_서식.xlsx');
+}
+
+/* 유틸 */
+function escH(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js').catch(function() {});
   });
 }
 </script>
