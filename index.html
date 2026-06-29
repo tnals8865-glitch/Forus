@@ -577,7 +577,14 @@ function updateMenuDateLabel(ymd) {
   if (el) el.textContent = lbl;
 }
 
-function isPastDeadline() {
+function isPastDeadline(date) {
+  var tday = todayStr();
+  var target = date || voteDate || tday;
+  /* 과거 날짜 → 무조건 마감 */
+  if (target < tday) return true;
+  /* 미래 날짜 → 아직 마감 아님 */
+  if (target > tday) return false;
+  /* 오늘 날짜 → 09:30 체크 */
   var p = DEADLINE.split(':');
   var n = new Date();
   return n.getHours() > +p[0] || (n.getHours() === +p[0] && n.getMinutes() >= +p[1]);
@@ -610,12 +617,7 @@ function onVoteDateChange() {
         renderUserSummary();
       } else {
         document.getElementById('user-form-card').style.display = 'block';
-        if (date === todayStr()) {
-          checkDeadline();
-        } else {
-          document.getElementById('user-submit-btn').disabled = false;
-          document.getElementById('deadline-passed').style.display = 'none';
-        }
+        checkDeadline();
       }
     });
   }
@@ -751,7 +753,7 @@ function doLogin() {
 document.getElementById('empid-inp').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
 
 function checkDeadline() {
-  var past = isPastDeadline();
+  var past = isPastDeadline(voteDate);
   document.getElementById('user-submit-btn').disabled = past;
   document.getElementById('deadline-passed').style.display = past ? 'flex' : 'none';
 }
