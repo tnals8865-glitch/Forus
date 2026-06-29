@@ -28,15 +28,14 @@ html{font-size:16px}
 body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 .ti{font-family:"tabler-icons"!important;font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased}
 
-/* NAV — 높이 줄이고 패딩 타이트하게 */
-#nav{background:var(--wh);border-bottom:1px solid var(--g2);padding:0 14px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
+#nav{background:var(--wh);border-bottom:1px solid var(--g2);padding:0 14px;display:flex;flex-direction:column;align-items:stretch;justify-content:center;height:auto;position:sticky;top:0;z-index:100;padding-top:10px;padding-bottom:10px;gap:8px}
 .nlogo{display:flex;align-items:center;gap:8px}
 .nicon{width:30px;height:30px;border-radius:8px;background:var(--p);display:flex;align-items:center;justify-content:center;color:var(--wh);font-size:15px;flex-shrink:0}
 .ntitle{font-size:13px;font-weight:700;color:var(--g8);line-height:1.2}
 .nsub{font-size:11px;color:var(--g4)}
-.ntabs{display:flex;gap:2px;background:var(--g1);border-radius:8px;padding:2px}
-.ntab{padding:5px 9px;border-radius:6px;border:none;background:transparent;font-size:11px;font-weight:600;color:var(--g6);cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:3px;font-family:var(--fn)}
-.ntab i{font-size:12px}
+.ntabs{display:flex;gap:4px;background:var(--g1);border-radius:8px;padding:3px}
+.ntab{flex:1;padding:7px 4px;border-radius:6px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g6);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:4px;font-family:var(--fn)}
+.ntab i{font-size:13px}
 .ntab.on{background:var(--wh);color:var(--p);box-shadow:0 1px 4px rgba(0,0,0,.09)}
 
 /* PAGE */
@@ -343,7 +342,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
   <div style="margin-bottom:14px"><h1 style="font-size:20px;font-weight:800">식단표 관리</h1></div>
   <div class="card">
     <div class="slbl">날짜 선택</div>
-    <input type="date" class="fi" id="menu-date-input" onchange="loadMenuForDate()"/>
+    <input type="date" class="fi" id="menu-date-input" onchange="loadMenuForDate()" style="padding:8px 10px;font-size:13px"/>
   </div>
   <div class="card">
     <div class="slbl">식단 직접 입력</div>
