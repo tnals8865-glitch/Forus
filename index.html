@@ -12,6 +12,16 @@
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <title>정읍지사 급식 식수 조사</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<!-- OneSignal 푸시 알림 -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "41321333-ff02-45df-8a83-5b8d83e40aa1",
+    });
+  });
+</script>
 <!-- XLSX는 직원 탭에서 엑셀 업로드/다운로드 시점에만 동적 로드 -->
 <script>
 var XLSX_LOADED = false;
