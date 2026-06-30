@@ -218,7 +218,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     </div>
     <!-- 날짜 선택 -->
     <div style="display:flex;gap:7px;margin-top:10px;align-items:center">
-      <input type="date" id="user-vote-date" class="fi" style="flex:1;padding:8px 10px;font-size:13px" onchange="onVoteDateChange()"/>
+      <input type="date" id="user-vote-date" class="fi" style="flex:1;padding:8px 10px;font-size:13px" onchange="onVoteDateChange()" oninput="onVoteDateChange()"/>
       <button class="btn bp btn-sm" onclick="onVoteDateChange()"><i class="ti ti-search"></i> 조회</button>
     </div>
   </div>
@@ -499,6 +499,7 @@ function initDate() {
   document.getElementById('user-date-chip').textContent =
     new Date().toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric', weekday:'long'});
 }
+/* updateMenuDateLabel 함수는 식단표 기능 제거로 더 이상 존재하지 않습니다. */
 
 function isPastDeadline(date) {
   var tday = todayStr();
