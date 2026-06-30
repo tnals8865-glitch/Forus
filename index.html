@@ -12,7 +12,17 @@
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <title>정읍지사 급식 식수 조사</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<!-- XLSX는 직원 탭에서 엑셀 업로드/다운로드 시점에만 동적 로드 -->
+<script>
+var XLSX_LOADED = false;
+function loadXLSX(cb) {
+  if (XLSX_LOADED && typeof XLSX !== 'undefined') { cb(); return; }
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+  s.onload = function() { XLSX_LOADED = true; cb(); };
+  document.head.appendChild(s);
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -373,6 +383,10 @@ var LS_ID   = 'siksu_id';
 var LS_VOTE = 'siksu_vote';
 var LS_DATE = 'siksu_date';
 
+/* 간단한 메모리 캐시: 같은 요청 30초 내 재호출 시 캐시 사용 */
+var apiCache = {};
+var CACHE_TTL = 30000; /* 30초 */
+
 /* ════════════════════════════════════
    JSONP 통신
 ════════════════════════════════════ */
@@ -394,15 +408,26 @@ function jsonp(url, cb) {
   document.head.appendChild(el);
 }
 function apiGet(action, params, cb) {
+  var cacheKey = action + ':' + JSON.stringify(params || {});
+  var cached = apiCache[cacheKey];
+  if (cached && (Date.now() - cached.time) < CACHE_TTL) {
+    cb(cached.data); /* 캐시 즉시 반환, 로딩창 표시 안 함 */
+    return;
+  }
   showLoading(true);
   var url = API + '?action=' + encodeURIComponent(action);
   if (params) Object.keys(params).forEach(function(k) { url += '&' + k + '=' + encodeURIComponent(params[k]); });
-  jsonp(url, cb);
+  jsonp(url, function(data) {
+    apiCache[cacheKey] = {data: data, time: Date.now()};
+    cb(data);
+  });
 }
 function apiPost(action, body, cb) {
   showLoading(true);
   body.action = action;
   var url = API + '?action=' + encodeURIComponent(action) + '&data=' + encodeURIComponent(JSON.stringify(body));
+  /* 쓰기 작업이므로 관련 캐시 무효화 */
+  apiCache = {};
   jsonp(url, cb);
 }
 function showLoading(on, msg) {
@@ -848,38 +873,40 @@ function toggleStaff(id) { apiPost('toggleStaff', {id: id}, function() { loadSta
 
 function handleStaffFile(inp) {
   if (!inp.files || !inp.files[0]) return;
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var wb   = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
-    var ws   = wb.Sheets[wb.SheetNames[0]];
-    var rows = XLSX.utils.sheet_to_json(ws, {header:1, defval:''});
-    parsedStaff = [];
-    var tbody = document.getElementById('staff-parse-rows');
-    tbody.innerHTML = '';
-    var existIds = {};
-    staffList.forEach(function(s) { existIds[s.id] = true; });
-    var dupCnt = 0;
-    rows.forEach(function(r) {
-      var eid = String(r[0] || '').trim();
-      var nm  = String(r[1] || '').trim();
-      if (!eid || !nm) return;
-      if (eid === '사번' || eid === '번호' || nm === '이름' || nm === '성명') return;
-      if (eid.match(/[가-힣a-zA-Z]/)) return;
-      var isDup = !!existIds[eid];
-      if (isDup) dupCnt++;
-      parsedStaff.push({id: eid, name: nm, dup: isDup});
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + escH(eid) + '</td><td>' + escH(nm) + '</td><td style="text-align:center">' + (isDup ? '<span class="badge bgr">중복</span>' : '<span class="badge bg">신규</span>') + '</td>';
-      tbody.appendChild(tr);
-    });
-    document.getElementById('staff-upload-preview').style.display = parsedStaff.length ? 'block' : 'none';
-    document.getElementById('staff-uz-title').textContent = inp.files[0].name + ' (' + parsedStaff.length + '명 인식됨)';
-    var warn = document.getElementById('staff-bulk-warn');
-    if (dupCnt > 0) { warn.style.display = 'flex'; document.getElementById('staff-bulk-warn-msg').textContent = ' ' + dupCnt + '명은 이미 등록되어 건너뜁니다.'; }
-    else warn.style.display = 'none';
-    if (!parsedStaff.length) alert('직원 데이터를 인식하지 못했어요.\n사번(A열), 이름(B열) 형태인지 확인해주세요.');
-  };
-  reader.readAsArrayBuffer(inp.files[0]);
+  loadXLSX(function() {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var wb   = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
+      var ws   = wb.Sheets[wb.SheetNames[0]];
+      var rows = XLSX.utils.sheet_to_json(ws, {header:1, defval:''});
+      parsedStaff = [];
+      var tbody = document.getElementById('staff-parse-rows');
+      tbody.innerHTML = '';
+      var existIds = {};
+      staffList.forEach(function(s) { existIds[s.id] = true; });
+      var dupCnt = 0;
+      rows.forEach(function(r) {
+        var eid = String(r[0] || '').trim();
+        var nm  = String(r[1] || '').trim();
+        if (!eid || !nm) return;
+        if (eid === '사번' || eid === '번호' || nm === '이름' || nm === '성명') return;
+        if (eid.match(/[가-힣a-zA-Z]/)) return;
+        var isDup = !!existIds[eid];
+        if (isDup) dupCnt++;
+        parsedStaff.push({id: eid, name: nm, dup: isDup});
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + escH(eid) + '</td><td>' + escH(nm) + '</td><td style="text-align:center">' + (isDup ? '<span class="badge bgr">중복</span>' : '<span class="badge bg">신규</span>') + '</td>';
+        tbody.appendChild(tr);
+      });
+      document.getElementById('staff-upload-preview').style.display = parsedStaff.length ? 'block' : 'none';
+      document.getElementById('staff-uz-title').textContent = inp.files[0].name + ' (' + parsedStaff.length + '명 인식됨)';
+      var warn = document.getElementById('staff-bulk-warn');
+      if (dupCnt > 0) { warn.style.display = 'flex'; document.getElementById('staff-bulk-warn-msg').textContent = ' ' + dupCnt + '명은 이미 등록되어 건너뜁니다.'; }
+      else warn.style.display = 'none';
+      if (!parsedStaff.length) alert('직원 데이터를 인식하지 못했어요.\n사번(A열), 이름(B열) 형태인지 확인해주세요.');
+    };
+    reader.readAsArrayBuffer(inp.files[0]);
+  });
 }
 
 function saveAllStaff() {
@@ -923,12 +950,14 @@ function changePin() {
    서식 다운로드
 ════════════════════════════════════ */
 function downloadStaffTemplate() {
-  var wb   = XLSX.utils.book_new();
-  var rows = [['사번','이름'],['001','홍길동'],['002','김영희'],['003','이철수']];
-  var ws   = XLSX.utils.aoa_to_sheet(rows);
-  ws['!cols'] = [{wch:12},{wch:14}];
-  XLSX.utils.book_append_sheet(wb, ws, '직원명단');
-  XLSX.writeFile(wb, '직원명단_서식.xlsx');
+  loadXLSX(function() {
+    var wb   = XLSX.utils.book_new();
+    var rows = [['사번','이름'],['001','홍길동'],['002','김영희'],['003','이철수']];
+    var ws   = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [{wch:12},{wch:14}];
+    XLSX.utils.book_append_sheet(wb, ws, '직원명단');
+    XLSX.writeFile(wb, '직원명단_서식.xlsx');
+  });
 }
 
 /* ════════════════════════════════════
