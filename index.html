@@ -463,9 +463,10 @@ window.addEventListener('load', function() {
   initDate();
   apiGet('getInit', null, function(res) {
     ADMIN_PIN = res.pin      || '0000';
-    DEADLINE  = res.deadline || '09:30';
+    DEADLINE  = (res.deadline && /^\d{1,2}:\d{2}$/.test(res.deadline)) ? res.deadline : '09:30';
     staffList = res.staff    || [];
     buildVoteMap(res.votes   || []);
+    console.log('[식수조사] DEADLINE =', DEADLINE, ' / 현재시각 =', new Date().toString());
     restoreSession();
   });
   /* 1분마다 마감 상태 재확인 (화면을 열어둔 채로 마감시간이 지나는 경우 대비) */
@@ -480,6 +481,8 @@ function buildVoteMap(votes) {
   voteMap = {};
   (votes || []).forEach(function(v) { voteMap[v.id] = v.vote; });
 }
+/* voteMap은 현재 voteDate 기준 데이터만 담습니다.
+   날짜를 바꿀 때마다 apiGet('getAdmin', {date}) 로 새로 받아와 덮어씁니다. */
 
 /* 날짜 */
 function todayStr() {
@@ -655,6 +658,7 @@ function doLogin() {
   if (found) {
     loggedId = v; localStorage.setItem(LS_ID, v);
     showLoggedIn(found);
+    voteDate = todayStr();
     if (voteMap[v]) {
       mealPick = voteMap[v];
       localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, todayStr());
@@ -664,7 +668,7 @@ function doLogin() {
       renderUserSummary();
     } else {
       document.getElementById('user-form-card').style.display = 'block';
-      checkDeadline(); /* 로그인 시 마감 체크 */
+      checkDeadline(); /* 로그인 직후 반드시 1회 체크 */
     }
   } else {
     document.getElementById('user-login-err').style.display = 'flex';
