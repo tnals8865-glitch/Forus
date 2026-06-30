@@ -27,8 +27,7 @@
 html{font-size:16px}
 body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 .ti{font-family:"tabler-icons"!important;font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased}
-
-#nav{background:var(--wh);border-bottom:1px solid var(--g2);padding:0 14px;display:flex;flex-direction:column;align-items:stretch;justify-content:center;height:auto;position:sticky;top:0;z-index:100;padding-top:10px;padding-bottom:10px;gap:8px}
+#nav{background:var(--wh);border-bottom:1px solid var(--g2);padding:10px 14px;display:flex;flex-direction:column;gap:8px;position:sticky;top:0;z-index:100}
 .nlogo{display:flex;align-items:center;gap:8px}
 .nicon{width:30px;height:30px;border-radius:8px;background:var(--p);display:flex;align-items:center;justify-content:center;color:var(--wh);font-size:15px;flex-shrink:0}
 .ntitle{font-size:13px;font-weight:700;color:var(--g8);line-height:1.2}
@@ -37,30 +36,20 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 .ntab{flex:1;padding:7px 4px;border-radius:6px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g6);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:4px;font-family:var(--fn)}
 .ntab i{font-size:13px}
 .ntab.on{background:var(--wh);color:var(--p);box-shadow:0 1px 4px rgba(0,0,0,.09)}
-
-/* PAGE */
 .page{display:none;padding:14px 14px 64px;max-width:540px;margin:0 auto}
 .page.on{display:block}
 #pin-overlay{display:none;max-width:540px;margin:0 auto;padding:14px}
 #pin-overlay.on{display:block}
-
-/* LOADING */
 #loading{position:fixed;inset:0;background:rgba(255,255,255,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:12px}
 #loading.hide{display:none}
 .spinner{width:36px;height:36px;border:4px solid var(--g2);border-top-color:var(--p);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 #loading-msg{font-size:13px;color:var(--g6);font-weight:600}
-
-/* CARD */
 .card{background:var(--wh);border-radius:12px;border:1px solid rgba(0,0,0,.055);padding:14px;margin-bottom:10px}
 .slbl{font-size:10px;font-weight:700;color:var(--g4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
-
-/* BADGE */
 .badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700}
 .bb{background:var(--pl);color:var(--p)}.bg{background:var(--okl);color:var(--ok)}
 .br{background:var(--ngl);color:var(--ng)}.bgr{background:var(--g1);color:var(--g6)}
-
-/* BTN */
 .btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border:none;border-radius:var(--rs);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;font-family:var(--fn)}
 .btn:active{transform:scale(.98)}
 .btn i{font-size:15px}
@@ -70,21 +59,15 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 .bgh{background:var(--g1);color:var(--g8);border:none}
 .btn-sm{padding:7px 12px;font-size:12px;width:auto;border-radius:var(--rx)}
 .btn:disabled{opacity:.38;cursor:not-allowed}
-
-/* FORM */
 .fg{margin-bottom:11px}
 .flbl{display:block;font-size:12px;font-weight:700;color:var(--g6);margin-bottom:5px}
 .fi,.fta{width:100%;padding:10px 12px;border:1.5px solid var(--g2);border-radius:var(--rs);font-size:14px;background:var(--wh);color:var(--g8);outline:none;transition:border-color .18s;font-family:var(--fn)}
 .fi:focus,.fta:focus{border-color:var(--p)}
 .fta{resize:vertical;min-height:90px}
-
-/* ALERT */
 .alert{padding:10px 12px;border-radius:var(--rs);font-size:13px;font-weight:500;display:flex;align-items:flex-start;gap:8px}
 .alert i{font-size:16px;flex-shrink:0;margin-top:1px}
 .as{background:var(--okl);color:var(--ok)}.aw{background:var(--wnl);color:var(--wn)}.ar{background:var(--ngl);color:var(--ng)}
 .dvd{border:none;border-top:1px solid var(--g1);margin:12px 0}
-
-/* STAT */
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .sbox{border-radius:var(--rs);padding:12px;text-align:center}
 .sbox .sv{font-size:28px;font-weight:800;line-height:1}
@@ -93,60 +76,34 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
 .sbox.sg{background:var(--okl)}.sbox.sg .sv{color:var(--ok)}
 .sbox.sr{background:var(--ngl)}.sbox.sr .sv{color:var(--ng)}
 .sbox.sgr{background:var(--g1)}.sbox.sgr .sv{color:var(--g6)}
-
-/* PROGRESS */
 .ph{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--g6)}
 .ph strong{font-size:14px;color:var(--p)}
 .pw{background:var(--g2);border-radius:20px;height:7px;overflow:hidden;margin:6px 0 3px}
 .pf{height:100%;border-radius:20px;background:var(--p);transition:width .5s ease}
-
-/* NAME LIST */
 .nlist{list-style:none}
 .nlist li{display:flex;align-items:center;gap:7px;padding:9px 0;border-bottom:1px solid var(--g1);font-size:13px}
 .nlist li:last-child{border-bottom:none}
 .nlist .nn{font-weight:600;flex:1}.nlist .nd{font-size:11px;color:var(--g4)}
-
-/* MENU ROW */
-.mrow{display:flex;align-items:center;padding:9px 12px;background:var(--g0);font-size:13px;font-weight:500;border-left:3px solid var(--pm)}
-.mrow:first-child{border-radius:var(--rx) var(--rx) 0 0}
-.mrow:last-child{border-radius:0 0 var(--rx) var(--rx)}
-.mrow+.mrow{border-top:1px solid var(--g2)}
-
-/* CHOICE */
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .cbtn{padding:18px 10px;border:2px solid var(--g2);border-radius:12px;background:var(--wh);font-size:14px;font-weight:700;cursor:pointer;text-align:center;transition:all .18s;font-family:var(--fn)}
 .cbtn .ci{font-size:30px;display:block;margin-bottom:6px}
 .cy{border-color:var(--ok)!important;background:var(--okl)!important;color:var(--ok)!important}
 .cn{border-color:var(--ng)!important;background:var(--ngl)!important;color:var(--ng)!important}
-
-/* STAFF */
 .srow{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--g1)}
 .srow:last-child{border-bottom:none}
 .savt{width:32px;height:32px;border-radius:50%;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--p);flex-shrink:0}
 .sinf{flex:1}.sn{font-size:13px;font-weight:700}.sid{font-size:11px;color:var(--g4)}
-
-/* UPLOAD */
 .uzone{border:2px dashed var(--g2);border-radius:var(--rs);padding:22px 14px;text-align:center;cursor:pointer;background:var(--g0);transition:border-color .18s}
 .uzone:hover{border-color:var(--p)}
 .uzone i{font-size:28px;color:var(--g4);display:block;margin-bottom:7px}
 .ut{font-size:13px;font-weight:600;color:var(--g6);margin-bottom:3px}
 .us{font-size:11px;color:var(--g4)}
-
-/* TABLE */
 .ptable{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
 .ptable th{padding:7px 9px;text-align:left;font-weight:700;font-size:11px;color:var(--g6);background:var(--g0);border-bottom:1px solid var(--g2)}
 .ptable td{padding:7px 9px;border-bottom:1px solid var(--g1);color:var(--g8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ptable tr:last-child td{border-bottom:none}
-
-/* CHIP */
 .chip-p{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--pl);color:var(--p)}
 .chip-w{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--wnl);color:var(--wn)}
-
-/* PREVIEW */
-.pvhd{background:var(--pl);padding:8px 12px;font-size:12px;font-weight:700;color:var(--p);display:flex;align-items:center;gap:6px;border-radius:var(--rx) var(--rx) 0 0}
-.pvbd{border:1px solid var(--g2);border-radius:var(--rx);overflow:hidden}
-
-/* PIN */
 .pin-wrap{display:flex;flex-direction:column;align-items:center;padding:36px 20px}
 .pin-icon{width:56px;height:56px;border-radius:14px;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--wh);margin-bottom:14px}
 .pin-title{font-size:18px;font-weight:800;margin-bottom:4px}
@@ -180,7 +137,6 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
   </div>
 </nav>
 
-<!-- PIN -->
 <div id="pin-overlay">
   <div class="pin-wrap">
     <div class="pin-icon"><i class="ti ti-lock"></i></div>
@@ -216,10 +172,9 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
       <span class="chip-p" id="user-date-chip"></span>
       <span class="chip-w"><i class="ti ti-clock"></i>매일 오전 9시 30분 마감</span>
     </div>
-    <!-- 날짜 선택 -->
     <div style="display:flex;gap:7px;margin-top:10px;align-items:center">
-      <input type="date" id="user-vote-date" class="fi" style="flex:1;padding:8px 10px;font-size:13px" onchange="onVoteDateChange()" oninput="onVoteDateChange()"/>
-      <button class="btn bp btn-sm" onclick="onVoteDateChange()"><i class="ti ti-search"></i> 조회</button>
+      <input type="date" id="user-vote-date" class="fi" style="flex:1;padding:8px 10px;font-size:13px"/>
+      <button class="btn bp btn-sm" id="vote-date-search-btn"><i class="ti ti-search"></i> 조회</button>
     </div>
   </div>
 
@@ -229,7 +184,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
       <label class="flbl" for="empid-inp">사번을 입력하세요</label>
       <div style="display:flex;gap:8px">
         <input id="empid-inp" type="text" class="fi" placeholder="예: 001" maxlength="10" style="flex:1" inputmode="numeric"/>
-        <button class="btn bp btn-sm" onclick="doLogin()"><i class="ti ti-arrow-right"></i> 확인</button>
+        <button class="btn bp btn-sm" id="login-btn"><i class="ti ti-arrow-right"></i> 확인</button>
       </div>
     </div>
     <div id="user-login-err" style="display:none;margin-top:12px" class="alert ar"><i class="ti ti-alert-circle"></i> 등록되지 않은 사번입니다.</div>
@@ -242,19 +197,19 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
         <div id="u-name" style="font-size:16px;font-weight:700;color:var(--ok)"></div>
         <div id="u-empid" style="font-size:12px;color:var(--g4);margin-top:2px"></div>
       </div>
-      <button class="btn bgh btn-sm" onclick="doLogout()" style="flex-shrink:0"><i class="ti ti-logout"></i> 로그아웃</button>
+      <button class="btn bgh btn-sm" id="logout-btn" style="flex-shrink:0"><i class="ti ti-logout"></i> 로그아웃</button>
     </div>
   </div>
 
   <div class="card" id="user-form-card" style="display:none">
-    <div class="slbl">식사 여부 선택</div>
+    <div class="slbl">식사 여부 선택 <span id="vote-target-date-label" style="color:var(--p)"></span></div>
     <div class="cgrid">
-      <button class="cbtn" id="c-yes" onclick="pickMeal('yes')"><span class="ci">🍚</span>식사함</button>
-      <button class="cbtn" id="c-no"  onclick="pickMeal('no')"><span class="ci">🚫</span>식사 안 함</button>
+      <button class="cbtn" id="c-yes"><span class="ci">🍚</span>식사함</button>
+      <button class="cbtn" id="c-no"><span class="ci">🚫</span>식사 안 함</button>
     </div>
     <div id="choice-warn" style="display:none;margin-top:12px" class="alert aw"><i class="ti ti-alert-triangle"></i> 식사 여부를 선택해주세요.</div>
     <div style="margin-top:14px">
-      <button class="btn bp" id="user-submit-btn" onclick="submitVote()"><i class="ti ti-send"></i> 제출하기</button>
+      <button class="btn bp" id="user-submit-btn"><i class="ti ti-send"></i> 제출하기</button>
     </div>
     <div id="deadline-passed" style="display:none;margin-top:10px" class="alert ar"><i class="ti ti-lock"></i> 투표 마감 시간(09:30)이 지났습니다.</div>
   </div>
@@ -264,7 +219,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
       <div>제출이 완료되었습니다.<br><small>수정이 필요하면 아래 버튼을 눌러주세요.</small></div>
     </div>
     <div class="dvd"></div>
-    <button class="btn bgh" onclick="editVote()"><i class="ti ti-edit"></i> 응답 수정하기</button>
+    <button class="btn bgh" id="edit-vote-btn"><i class="ti ti-edit"></i> 응답 수정하기</button>
     <div class="dvd"></div>
     <div class="slbl">식수 현황</div>
     <div class="sgrid" style="margin-bottom:14px">
@@ -284,8 +239,8 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
   <div style="margin-bottom:14px">
     <h1 style="font-size:20px;font-weight:800">식수 집계 현황</h1>
     <div style="display:flex;gap:7px;margin-top:10px;align-items:center">
-      <input type="date" id="admin-date" class="fi" style="flex:1;padding:8px 10px;font-size:13px" onchange="loadAdmin()"/>
-      <button class="btn bp btn-sm" onclick="loadAdmin()"><i class="ti ti-refresh"></i> 새로고침</button>
+      <input type="date" id="admin-date" class="fi" style="flex:1;padding:8px 10px;font-size:13px"/>
+      <button class="btn bp btn-sm" id="admin-refresh-btn"><i class="ti ti-refresh"></i> 새로고침</button>
     </div>
   </div>
   <div class="card">
@@ -321,7 +276,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     </div>
     <ul class="nlist" id="admin-pending-ul"><li style="color:var(--g4);font-size:13px">불러오는 중...</li></ul>
     <div class="dvd"></div>
-    <button class="btn bgh btn-sm" style="width:100%" onclick="copyNotice()"><i class="ti ti-copy"></i> 미응답자 안내 문구 복사</button>
+    <button class="btn bgh btn-sm" style="width:100%" id="copy-notice-btn"><i class="ti ti-copy"></i> 미응답자 안내 문구 복사</button>
     <div id="copy-ok" style="display:none;margin-top:8px" class="alert as"><i class="ti ti-check"></i> 클립보드에 복사되었습니다.</div>
   </div>
 </div>
@@ -336,7 +291,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     <div id="staff-add-warn" style="display:none;margin-bottom:10px" class="alert aw"><i class="ti ti-alert-triangle"></i> 사번과 이름을 모두 입력해주세요.</div>
     <div id="staff-dup-warn" style="display:none;margin-bottom:10px" class="alert ar"><i class="ti ti-alert-circle"></i> 이미 등록된 사번입니다.</div>
     <div id="staff-add-ok"   style="display:none;margin-bottom:10px" class="alert as"><i class="ti ti-circle-check"></i> 직원이 추가되었습니다.</div>
-    <button class="btn bp" onclick="addStaff()"><i class="ti ti-user-plus"></i> 직원 추가</button>
+    <button class="btn bp" id="add-staff-btn"><i class="ti ti-user-plus"></i> 직원 추가</button>
   </div>
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
@@ -351,10 +306,10 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
           <div style="font-size:11px;color:var(--p);opacity:.7">사번(A열), 이름(B열)</div>
         </div>
       </div>
-      <button class="btn bp btn-sm" onclick="downloadStaffTemplate()"><i class="ti ti-download"></i> 다운로드</button>
+      <button class="btn bp btn-sm" id="download-staff-template-btn"><i class="ti ti-download"></i> 다운로드</button>
     </div>
-    <div class="uzone" onclick="document.getElementById('staff-file-inp').click()">
-      <input type="file" id="staff-file-inp" accept=".xlsx,.xls" style="display:none" onchange="handleStaffFile(this)"/>
+    <div class="uzone" id="staff-upload-zone">
+      <input type="file" id="staff-file-inp" accept=".xlsx,.xls" style="display:none"/>
       <i class="ti ti-file-upload"></i>
       <div class="ut" id="staff-uz-title">파일을 클릭하거나 드래그하여 업로드</div>
       <div class="us">엑셀(.xlsx) — 사번(A열), 이름(B열)</div>
@@ -368,7 +323,7 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
         </table>
       </div>
       <div id="staff-bulk-warn" style="display:none;margin-top:8px" class="alert aw"><i class="ti ti-alert-triangle"></i><span id="staff-bulk-warn-msg"></span></div>
-      <button class="btn bs" style="margin-top:10px" onclick="saveAllStaff()"><i class="ti ti-circle-check"></i> 전체 저장</button>
+      <button class="btn bs" style="margin-top:10px" id="save-all-staff-btn"><i class="ti ti-circle-check"></i> 전체 저장</button>
     </div>
     <div id="staff-bulk-ok" style="display:none;margin-top:10px" class="alert as"><i class="ti ti-circle-check"></i><span id="staff-bulk-ok-msg"></span></div>
   </div>
@@ -394,11 +349,14 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     <div class="fg" style="margin-bottom:14px"><label class="flbl" for="pw-confirm">새 비밀번호 확인</label><input id="pw-confirm" type="password" class="fi" maxlength="4" placeholder="새 비밀번호 재입력" inputmode="numeric"/></div>
     <div id="pw-err" style="display:none;margin-bottom:10px" class="alert ar"><i class="ti ti-alert-circle"></i><span id="pw-err-msg"></span></div>
     <div id="pw-ok"  style="display:none;margin-bottom:10px" class="alert as"><i class="ti ti-circle-check"></i> 비밀번호가 변경되었습니다.</div>
-    <button class="btn bp" onclick="changePin()"><i class="ti ti-lock-check"></i> 비밀번호 변경하기</button>
+    <button class="btn bp" id="change-pin-btn"><i class="ti ti-lock-check"></i> 비밀번호 변경하기</button>
   </div>
 </div>
 
 <script>
+/* ════════════════════════════════════
+   전역 상태
+════════════════════════════════════ */
 var API       = 'https://script.google.com/macros/s/AKfycbzH_wRDwQetbnfC-cic0KW9FFPrwcxKl21ifHmdvnB103OeATwR7rujrfbfweZCr-e03g/exec';
 var ADMIN_PIN = '0000';
 var DEADLINE  = '09:30';
@@ -415,7 +373,9 @@ var LS_ID   = 'siksu_id';
 var LS_VOTE = 'siksu_vote';
 var LS_DATE = 'siksu_date';
 
-/* JSONP */
+/* ════════════════════════════════════
+   JSONP 통신
+════════════════════════════════════ */
 function jsonp(url, cb) {
   var id  = '_cb' + Date.now() + Math.floor(Math.random()*9999);
   var el  = document.createElement('script');
@@ -433,63 +393,37 @@ function jsonp(url, cb) {
   el.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + id;
   document.head.appendChild(el);
 }
-
 function apiGet(action, params, cb) {
   showLoading(true);
   var url = API + '?action=' + encodeURIComponent(action);
-  if (params) {
-    Object.keys(params).forEach(function(k) {
-      url += '&' + k + '=' + encodeURIComponent(params[k]);
-    });
-  }
+  if (params) Object.keys(params).forEach(function(k) { url += '&' + k + '=' + encodeURIComponent(params[k]); });
   jsonp(url, cb);
 }
-
 function apiPost(action, body, cb) {
   showLoading(true);
   body.action = action;
   var url = API + '?action=' + encodeURIComponent(action) + '&data=' + encodeURIComponent(JSON.stringify(body));
   jsonp(url, cb);
 }
-
 function showLoading(on, msg) {
   var el = document.getElementById('loading');
   document.getElementById('loading-msg').textContent = msg || '처리 중...';
-  if (on) { el.classList.remove('hide'); } else { el.classList.add('hide'); }
+  if (on) el.classList.remove('hide'); else el.classList.add('hide');
 }
 
-/* 초기화 */
-window.addEventListener('load', function() {
-  initDate();
-  apiGet('getInit', null, function(res) {
-    ADMIN_PIN = res.pin      || '0000';
-    DEADLINE  = (res.deadline && /^\d{1,2}:\d{2}$/.test(res.deadline)) ? res.deadline : '09:30';
-    staffList = res.staff    || [];
-    buildVoteMap(res.votes   || []);
-    console.log('[식수조사] DEADLINE =', DEADLINE, ' / 현재시각 =', new Date().toString());
-    restoreSession();
-  });
-  /* 1분마다 마감 상태 재확인 (화면을 열어둔 채로 마감시간이 지나는 경우 대비) */
-  setInterval(function() {
-    if (document.getElementById('user-form-card').style.display === 'block') {
-      checkDeadline();
-    }
-  }, 60000);
-});
-
-function buildVoteMap(votes) {
-  voteMap = {};
-  (votes || []).forEach(function(v) { voteMap[v.id] = v.vote; });
-}
-/* voteMap은 현재 voteDate 기준 데이터만 담습니다.
-   날짜를 바꿀 때마다 apiGet('getAdmin', {date}) 로 새로 받아와 덮어씁니다. */
-
-/* 날짜 */
+/* ════════════════════════════════════
+   날짜 유틸
+════════════════════════════════════ */
 function todayStr() {
   var n = new Date();
   return n.getFullYear() + '-' + pad(n.getMonth()+1) + '-' + pad(n.getDate());
 }
 function pad(v) { return String(v).padStart(2, '0'); }
+
+function fmtDateLabel(ymd) {
+  var d = new Date(ymd + 'T00:00:00');
+  return (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+}
 
 function initDate() {
   var ymd = todayStr();
@@ -498,56 +432,139 @@ function initDate() {
   document.getElementById('user-vote-date').value = ymd;
   document.getElementById('user-date-chip').textContent =
     new Date().toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric', weekday:'long'});
+  document.getElementById('vote-target-date-label').textContent = '(' + fmtDateLabel(ymd) + ')';
 }
-/* updateMenuDateLabel 함수는 식단표 기능 제거로 더 이상 존재하지 않습니다. */
 
+/* ════════════════════════════════════
+   마감 체크
+════════════════════════════════════ */
 function isPastDeadline(date) {
-  var tday = todayStr();
+  var tday   = todayStr();
   var target = date || voteDate || tday;
-  /* 과거 날짜 → 무조건 마감 */
   if (target < tday) return true;
-  /* 미래 날짜 → 아직 마감 아님 */
   if (target > tday) return false;
-  /* 오늘 날짜 → 09:30 체크 */
-  var p = DEADLINE.split(':');
-  var n = new Date();
-  return n.getHours() > +p[0] || (n.getHours() === +p[0] && n.getMinutes() >= +p[1]);
+  var parts = DEADLINE.split(':');
+  var dh = parseInt(parts[0], 10);
+  var dm = parseInt(parts[1], 10);
+  var now = new Date();
+  var nowMinutes = now.getHours() * 60 + now.getMinutes();
+  return nowMinutes >= (dh * 60 + dm);
 }
 
-/* 날짜 변경 */
+function checkDeadline() {
+  var date = voteDate || todayStr();
+  var past = isPastDeadline(date);
+  var btn  = document.getElementById('user-submit-btn');
+  var msg  = document.getElementById('deadline-passed');
+  var cy   = document.getElementById('c-yes');
+  var cn   = document.getElementById('c-no');
+  btn.disabled = past;
+  msg.style.display = past ? 'flex' : 'none';
+  cy.disabled = past; cn.disabled = past;
+  cy.style.opacity = past ? '0.45' : '1';
+  cn.style.opacity = past ? '0.45' : '1';
+  cy.style.pointerEvents = past ? 'none' : 'auto';
+  cn.style.pointerEvents = past ? 'none' : 'auto';
+  return past;
+}
+
+/* ════════════════════════════════════
+   초기화
+════════════════════════════════════ */
+window.addEventListener('load', function() {
+  initDate();
+  bindEvents();
+  apiGet('getInit', null, function(res) {
+    ADMIN_PIN = res.pin || '0000';
+    DEADLINE  = (res.deadline && /^\d{1,2}:\d{2}$/.test(res.deadline)) ? res.deadline : '09:30';
+    staffList = res.staff || [];
+    buildVoteMap(res.votes || []);
+    restoreSession();
+  });
+  setInterval(function() {
+    if (document.getElementById('user-form-card').style.display === 'block') checkDeadline();
+  }, 60000);
+});
+
+function buildVoteMap(votes) {
+  voteMap = {};
+  (votes || []).forEach(function(v) { voteMap[v.id] = v.vote; });
+}
+
+/* ════════════════════════════════════
+   이벤트 바인딩 (addEventListener 방식으로 통일)
+════════════════════════════════════ */
+function bindEvents() {
+  document.getElementById('vote-date-search-btn').addEventListener('click', onVoteDateChange);
+  document.getElementById('user-vote-date').addEventListener('change', onVoteDateChange);
+
+  document.getElementById('login-btn').addEventListener('click', doLogin);
+  document.getElementById('empid-inp').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+  document.getElementById('logout-btn').addEventListener('click', doLogout);
+
+  document.getElementById('c-yes').addEventListener('click', function() { pickMeal('yes'); });
+  document.getElementById('c-no').addEventListener('click', function() { pickMeal('no'); });
+  document.getElementById('user-submit-btn').addEventListener('click', submitVote);
+  document.getElementById('edit-vote-btn').addEventListener('click', editVote);
+
+  document.getElementById('admin-refresh-btn').addEventListener('click', loadAdmin);
+  document.getElementById('admin-date').addEventListener('change', loadAdmin);
+  document.getElementById('copy-notice-btn').addEventListener('click', copyNotice);
+
+  document.getElementById('add-staff-btn').addEventListener('click', addStaff);
+  document.getElementById('download-staff-template-btn').addEventListener('click', downloadStaffTemplate);
+  document.getElementById('staff-upload-zone').addEventListener('click', function() {
+    document.getElementById('staff-file-inp').click();
+  });
+  document.getElementById('staff-file-inp').addEventListener('change', function() { handleStaffFile(this); });
+  document.getElementById('save-all-staff-btn').addEventListener('click', saveAllStaff);
+
+  document.getElementById('change-pin-btn').addEventListener('click', changePin);
+}
+
+/* ════════════════════════════════════
+   날짜 변경 — 투표 화면 동기화 핵심
+════════════════════════════════════ */
 function onVoteDateChange() {
   var date = document.getElementById('user-vote-date').value || todayStr();
   voteDate = date;
-  updateMenuDateLabel(date);
+  document.getElementById('vote-target-date-label').textContent = '(' + fmtDateLabel(date) + ')';
+
   mealPick = null;
   document.getElementById('c-yes').className = 'cbtn';
   document.getElementById('c-no').className  = 'cbtn';
-  document.getElementById('user-form-card').style.display    = 'none';
+  document.getElementById('choice-warn').style.display = 'none';
   document.getElementById('user-submit-result').style.display = 'none';
 
-  apiGet('getMenu', {date: date}, function(mres) {
-    renderMenu(mres.menu || '', date);
-  });
-
-  if (loggedId) {
-    apiGet('getAdmin', {date: date}, function(res) {
-      staffList = res.staff || staffList;
-      buildVoteMap(res.votes || []);
-      if (voteMap[loggedId]) {
-        mealPick = voteMap[loggedId];
-        pickMeal(mealPick);
-        document.getElementById('user-form-card').style.display    = 'none';
-        document.getElementById('user-submit-result').style.display = 'block';
-        renderUserSummary();
-      } else {
-        document.getElementById('user-form-card').style.display = 'block';
-        checkDeadline();
-      }
-    });
+  if (!loggedId) {
+    document.getElementById('user-form-card').style.display = 'none';
+    return;
   }
+
+  apiGet('getAdmin', {date: date}, function(res) {
+    staffList = res.staff || staffList;
+    buildVoteMap(res.votes || []);
+
+    if (voteMap[loggedId]) {
+      mealPick = voteMap[loggedId];
+      pickMealNoCheck(mealPick);
+      document.getElementById('user-form-card').style.display     = 'none';
+      document.getElementById('user-submit-result').style.display = 'block';
+      renderUserSummary();
+    } else {
+      mealPick = null;
+      document.getElementById('c-yes').className = 'cbtn';
+      document.getElementById('c-no').className  = 'cbtn';
+      document.getElementById('user-submit-result').style.display = 'none';
+      document.getElementById('user-form-card').style.display     = 'block';
+      checkDeadline();
+    }
+  });
 }
 
-/* 세션 복원 */
+/* ════════════════════════════════════
+   세션 복원
+════════════════════════════════════ */
 function restoreSession() {
   var sid  = localStorage.getItem(LS_ID);
   var sdt  = localStorage.getItem(LS_DATE);
@@ -558,6 +575,8 @@ function restoreSession() {
   if (!found) { localStorage.removeItem(LS_ID); return; }
   loggedId = sid;
   showLoggedIn(found);
+  voteDate = tday;
+
   if (sdt === tday && svt) {
     mealPick = svt; voteMap[sid] = svt; pickMealNoCheck(svt);
     document.getElementById('user-form-card').style.display     = 'none';
@@ -598,7 +617,9 @@ function doLogout() {
   document.getElementById('user-login-err').style.display = 'none';
 }
 
-/* 페이지 전환 */
+/* ════════════════════════════════════
+   페이지 전환
+════════════════════════════════════ */
 function showPage(id) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('pin-overlay').classList.remove('on');
@@ -646,12 +667,12 @@ function pinPress(v) {
   }
 }
 function updateDots() {
-  for (var i = 0; i < 4; i++) {
-    document.getElementById('pd' + i).classList.toggle('filled', i < pinBuf.length);
-  }
+  for (var i = 0; i < 4; i++) document.getElementById('pd' + i).classList.toggle('filled', i < pinBuf.length);
 }
 
-/* 로그인 */
+/* ════════════════════════════════════
+   로그인
+════════════════════════════════════ */
 function doLogin() {
   var v = document.getElementById('empid-inp').value.trim();
   document.getElementById('user-login-err').style.display = 'none';
@@ -659,31 +680,29 @@ function doLogin() {
   if (found) {
     loggedId = v; localStorage.setItem(LS_ID, v);
     showLoggedIn(found);
-    voteDate = todayStr();
-    if (voteMap[v]) {
-      mealPick = voteMap[v];
-      localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, todayStr());
+    voteDate = document.getElementById('user-vote-date').value || todayStr();
+
+    if (voteMap[loggedId]) {
+      mealPick = voteMap[loggedId];
+      if (voteDate === todayStr()) {
+        localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, todayStr());
+      }
       pickMealNoCheck(mealPick);
       document.getElementById('user-form-card').style.display     = 'none';
       document.getElementById('user-submit-result').style.display = 'block';
       renderUserSummary();
     } else {
       document.getElementById('user-form-card').style.display = 'block';
-      checkDeadline(); /* 로그인 직후 반드시 1회 체크 */
+      checkDeadline();
     }
   } else {
     document.getElementById('user-login-err').style.display = 'flex';
   }
 }
-document.getElementById('empid-inp').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
 
-function checkDeadline() {
-  var past = isPastDeadline(voteDate);
-  document.getElementById('user-submit-btn').disabled = past;
-  document.getElementById('deadline-passed').style.display = past ? 'flex' : 'none';
-}
-
-/* 투표 */
+/* ════════════════════════════════════
+   투표
+════════════════════════════════════ */
 function pickMeal(t) {
   if (isPastDeadline(voteDate)) { checkDeadline(); return; }
   pickMealNoCheck(t);
@@ -696,12 +715,7 @@ function pickMealNoCheck(t) {
 }
 
 function submitVote() {
-  /* 제출 직전 마감 재검증 */
-  if (isPastDeadline(voteDate)) {
-    checkDeadline();
-    alert('투표 마감 시간이 지났습니다.');
-    return;
-  }
+  if (isPastDeadline(voteDate)) { checkDeadline(); alert('투표 마감 시간이 지났습니다.'); return; }
   if (!mealPick) { document.getElementById('choice-warn').style.display = 'flex'; return; }
   var found = staffList.find(function(s) { return s.id === loggedId; });
   var date  = voteDate || todayStr();
@@ -717,13 +731,15 @@ function submitVote() {
     renderUserSummary();
   });
 }
-
 function editVote() {
   document.getElementById('user-submit-result').style.display = 'none';
   document.getElementById('user-form-card').style.display     = 'block';
+  checkDeadline();
 }
 
-/* 집계 */
+/* ════════════════════════════════════
+   집계
+════════════════════════════════════ */
 function calcStats() {
   var active  = staffList.filter(function(s) { return s.active; });
   var meal    = active.filter(function(s) { return voteMap[s.id] === 'yes'; });
@@ -744,7 +760,9 @@ function renderUserSummary() {
   }).join('') || '<li style="color:var(--g4);font-size:13px">식사 예정자가 없습니다.</li>';
 }
 
-/* 관리 탭 */
+/* ════════════════════════════════════
+   관리 탭
+════════════════════════════════════ */
 function loadAdmin() {
   var date = document.getElementById('admin-date').value || todayStr();
   apiGet('getAdmin', {date: date}, function(res) {
@@ -787,11 +805,12 @@ function copyNotice() {
   }).catch(function() { alert(msg); });
 }
 
-/* 직원 탭 */
+/* ════════════════════════════════════
+   직원 탭
+════════════════════════════════════ */
 function loadStaff() {
   apiGet('getInit', null, function(res) { staffList = res.staff || []; renderStaffList(); });
 }
-
 function renderStaffList() {
   var cnt = staffList.length;
   document.getElementById('staff-count').innerHTML = '<i class="ti ti-users"></i> ' + cnt + '명';
@@ -802,11 +821,13 @@ function renderStaffList() {
       + '<div class="savt" style="' + (s.active ? '' : 'background:var(--g1);color:var(--g4)') + '">' + escH(s.name[0]) + '</div>'
       + '<div class="sinf"><div class="sn" style="' + (s.active ? '' : 'color:var(--g4)') + '">' + escH(s.name) + '</div><div class="sid">사번 ' + escH(s.id) + '</div></div>'
       + '<span class="badge ' + (s.active ? 'bg' : 'bgr') + '">' + (s.active ? '활성' : '비활성') + '</span>'
-      + '<button class="btn bgh btn-sm" onclick="toggleStaff(\'' + escH(s.id) + '\')" aria-label="상태 전환"><i class="ti ti-switch-horizontal"></i></button>'
+      + '<button class="btn bgh btn-sm" data-toggle-id="' + escH(s.id) + '" aria-label="상태 전환"><i class="ti ti-switch-horizontal"></i></button>'
       + '</div>';
   }).join('');
+  el.querySelectorAll('[data-toggle-id]').forEach(function(btn) {
+    btn.addEventListener('click', function() { toggleStaff(btn.getAttribute('data-toggle-id')); });
+  });
 }
-
 function addStaff() {
   var eid = document.getElementById('add-eid').value.trim();
   var nm  = document.getElementById('add-nm').value.trim();
@@ -823,7 +844,6 @@ function addStaff() {
     loadStaff();
   });
 }
-
 function toggleStaff(id) { apiPost('toggleStaff', {id: id}, function() { loadStaff(); }); }
 
 function handleStaffFile(inp) {
@@ -877,14 +897,14 @@ function saveAllStaff() {
   });
 }
 
-/* 비밀번호 변경 */
+/* ════════════════════════════════════
+   비밀번호 변경
+════════════════════════════════════ */
 function changePin() {
   var cur = document.getElementById('pw-cur').value.trim();
   var nw  = document.getElementById('pw-new').value.trim();
   var cf  = document.getElementById('pw-confirm').value.trim();
-  var err = document.getElementById('pw-err');
-  var ok  = document.getElementById('pw-ok');
-  var msg = document.getElementById('pw-err-msg');
+  var err = document.getElementById('pw-err'), ok = document.getElementById('pw-ok'), msg = document.getElementById('pw-err-msg');
   err.style.display = 'none'; ok.style.display = 'none';
   if (!cur || !nw || !cf) { msg.textContent = ' 모든 항목을 입력해주세요.'; err.style.display = 'flex'; return; }
   if (!/^\d{4}$/.test(nw)) { msg.textContent = ' 새 비밀번호는 숫자 4자리여야 합니다.'; err.style.display = 'flex'; return; }
@@ -899,7 +919,9 @@ function changePin() {
   });
 }
 
-/* 서식 다운로드 */
+/* ════════════════════════════════════
+   서식 다운로드
+════════════════════════════════════ */
 function downloadStaffTemplate() {
   var wb   = XLSX.utils.book_new();
   var rows = [['사번','이름'],['001','홍길동'],['002','김영희'],['003','이철수']];
@@ -909,7 +931,9 @@ function downloadStaffTemplate() {
   XLSX.writeFile(wb, '직원명단_서식.xlsx');
 }
 
-/* 유틸 */
+/* ════════════════════════════════════
+   유틸
+════════════════════════════════════ */
 function escH(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 if ('serviceWorker' in navigator) {
