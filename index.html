@@ -395,7 +395,7 @@ var LS_DATE = 'siksu_date';
 
 /* 간단한 메모리 캐시: 같은 요청 30초 내 재호출 시 캐시 사용 */
 var apiCache = {};
-var CACHE_TTL = 30000; /* 30초 */
+var CACHE_TTL = 60000; /* 60초로 연장 — 탭 전환 시 재호출 줄임 */
 
 /* ════════════════════════════════════
    JSONP 통신
@@ -432,13 +432,15 @@ function apiGet(action, params, cb) {
     cb(data);
   });
 }
-function apiPost(action, body, cb) {
-  showLoading(true);
+function apiPost(action, body, cb, silent) {
+  if (!silent) showLoading(true);
   body.action = action;
   var url = API + '?action=' + encodeURIComponent(action) + '&data=' + encodeURIComponent(JSON.stringify(body));
-  /* 쓰기 작업이므로 관련 캐시 무효화 */
   apiCache = {};
-  jsonp(url, cb);
+  jsonp(url, function(data) {
+    if (silent) showLoading(false);
+    cb(data);
+  });
 }
 function showLoading(on, msg) {
   var el = document.getElementById('loading');
