@@ -176,7 +176,6 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
   <div class="ntabs">
     <button class="ntab on" id="tab-user"  onclick="navUser(this)"><i class="ti ti-clipboard-check"></i>투표</button>
     <button class="ntab"    id="tab-admin" onclick="navPage('admin',this)"><i class="ti ti-chart-bar"></i>관리</button>
-    <button class="ntab"    id="tab-menu"  onclick="navAdmin('menu',this)"><i class="ti ti-salad"></i>식단표</button>
     <button class="ntab"    id="tab-staff" onclick="navAdmin('staff',this)"><i class="ti ti-users"></i>직원</button>
   </div>
 </nav>
@@ -244,16 +243,6 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
         <div id="u-empid" style="font-size:12px;color:var(--g4);margin-top:2px"></div>
       </div>
       <button class="btn bgh btn-sm" onclick="doLogout()" style="flex-shrink:0"><i class="ti ti-logout"></i> 로그아웃</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div class="slbl" style="margin-bottom:0">식단</div>
-      <span class="badge bb" id="user-menu-date-label"></span>
-    </div>
-    <div id="ui-menu-display" style="border-radius:var(--rx);overflow:hidden">
-      <div style="padding:16px;text-align:center;font-size:14px;color:var(--g4)">불러오는 중...</div>
     </div>
   </div>
 
@@ -334,70 +323,6 @@ body{font-family:var(--fn);background:#ECEEF5;color:var(--g8);min-height:100vh}
     <div class="dvd"></div>
     <button class="btn bgh btn-sm" style="width:100%" onclick="copyNotice()"><i class="ti ti-copy"></i> 미응답자 안내 문구 복사</button>
     <div id="copy-ok" style="display:none;margin-top:8px" class="alert as"><i class="ti ti-check"></i> 클립보드에 복사되었습니다.</div>
-  </div>
-</div>
-
-<!-- PAGE-MENU -->
-<div id="page-menu" class="page">
-  <div style="margin-bottom:14px"><h1 style="font-size:20px;font-weight:800">식단표 관리</h1></div>
-  <div class="card">
-    <div class="slbl">날짜 선택</div>
-    <input type="date" class="fi" id="menu-date-input" onchange="loadMenuForDate()" style="padding:8px 10px;font-size:13px"/>
-  </div>
-  <div class="card">
-    <div class="slbl">식단 직접 입력</div>
-    <div class="fg">
-      <label class="flbl" for="menu-ta">메뉴 (한 줄에 하나씩)</label>
-      <textarea id="menu-ta" class="fta" placeholder="예시&#10;밥&#10;김치찌개&#10;제육볶음&#10;계란찜&#10;깍두기" oninput="updatePreview()"></textarea>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn bp" style="flex:2" onclick="saveMenu()"><i class="ti ti-device-floppy"></i> 저장</button>
-      <button class="btn bgh" style="flex:1" onclick="document.getElementById('menu-ta').focus()"><i class="ti ti-edit"></i> 수정</button>
-      <button class="btn bd"  style="flex:1" onclick="deleteMenu()"><i class="ti ti-trash"></i> 삭제</button>
-    </div>
-    <div id="menu-save-ok"   style="display:none;margin-top:10px" class="alert as"><i class="ti ti-circle-check"></i> 식단이 저장되었습니다.</div>
-    <div id="menu-delete-ok" style="display:none;margin-top:10px" class="alert ar"><i class="ti ti-trash"></i> 식단이 삭제되었습니다.</div>
-  </div>
-  <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div class="slbl" style="margin-bottom:0">파일로 일괄 등록</div>
-      <span class="badge bb">주간 · 월간</span>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--pl);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px">
-      <div style="display:flex;align-items:center;gap:10px">
-        <i class="ti ti-file-spreadsheet" style="font-size:22px;color:var(--p)"></i>
-        <div>
-          <div style="font-size:13px;font-weight:700;color:var(--p)">식단표 서식 다운로드</div>
-          <div style="font-size:11px;color:var(--p);opacity:.7">업로드 전 서식 확인용</div>
-        </div>
-      </div>
-      <button class="btn bp btn-sm" onclick="downloadMenuTemplate()"><i class="ti ti-download"></i> 다운로드</button>
-    </div>
-    <div class="uzone" onclick="document.getElementById('file-inp').click()">
-      <input type="file" id="file-inp" accept=".xlsx,.xls" style="display:none" onchange="handleMenuFile(this)"/>
-      <i class="ti ti-file-upload"></i>
-      <div class="ut" id="menu-uz-title">파일을 클릭하거나 드래그하여 업로드</div>
-      <div class="us">주간식단표 엑셀(.xlsx) 그대로 업로드</div>
-    </div>
-    <div id="menu-bulk-preview" style="display:none;margin-top:14px">
-      <div class="slbl">인식된 식단 미리보기</div>
-      <div style="border:1px solid var(--g2);border-radius:var(--rs);overflow:hidden;overflow-x:auto">
-        <table class="ptable">
-          <thead><tr><th style="width:28%">날짜</th><th style="width:54%">식단</th><th style="width:18%;text-align:center">상태</th></tr></thead>
-          <tbody id="menu-bulk-rows"></tbody>
-        </table>
-      </div>
-      <button class="btn bs" style="margin-top:10px" onclick="saveAllMenus()"><i class="ti ti-circle-check"></i> 전체 저장</button>
-    </div>
-  </div>
-  <div class="card">
-    <div class="slbl">직원 화면 미리보기</div>
-    <div class="pvbd">
-      <div class="pvhd"><i class="ti ti-salad"></i> 오늘의 식단</div>
-      <div style="padding:10px 14px" id="menu-preview-list">
-        <div style="padding:14px;text-align:center;font-size:13px;color:var(--g4)">메뉴를 입력하면 여기에 표시됩니다.</div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -486,7 +411,6 @@ var loggedId      = '';
 var mealPick      = null;
 var voteDate      = '';
 var parsedStaff   = [];
-var parsedMenus   = [];
 var LS_ID   = 'siksu_id';
 var LS_VOTE = 'siksu_vote';
 var LS_DATE = 'siksu_date';
@@ -542,9 +466,14 @@ window.addEventListener('load', function() {
     DEADLINE  = res.deadline || '09:30';
     staffList = res.staff    || [];
     buildVoteMap(res.votes   || []);
-    renderMenu(res.menu || '', voteDate);
     restoreSession();
   });
+  /* 1분마다 마감 상태 재확인 (화면을 열어둔 채로 마감시간이 지나는 경우 대비) */
+  setInterval(function() {
+    if (document.getElementById('user-form-card').style.display === 'block') {
+      checkDeadline();
+    }
+  }, 60000);
 });
 
 function buildVoteMap(votes) {
@@ -562,19 +491,10 @@ function pad(v) { return String(v).padStart(2, '0'); }
 function initDate() {
   var ymd = todayStr();
   voteDate = ymd;
-  document.getElementById('admin-date').value      = ymd;
-  document.getElementById('menu-date-input').value = ymd;
-  document.getElementById('user-vote-date').value  = ymd;
+  document.getElementById('admin-date').value     = ymd;
+  document.getElementById('user-vote-date').value = ymd;
   document.getElementById('user-date-chip').textContent =
     new Date().toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric', weekday:'long'});
-  updateMenuDateLabel(ymd);
-}
-
-function updateMenuDateLabel(ymd) {
-  var d   = new Date(ymd + 'T00:00:00');
-  var lbl = (d.getMonth()+1) + '월 ' + d.getDate() + '일';
-  var el  = document.getElementById('user-menu-date-label');
-  if (el) el.textContent = lbl;
 }
 
 function isPastDeadline(date) {
@@ -635,7 +555,7 @@ function restoreSession() {
   loggedId = sid;
   showLoggedIn(found);
   if (sdt === tday && svt) {
-    mealPick = svt; voteMap[sid] = svt; pickMeal(svt);
+    mealPick = svt; voteMap[sid] = svt; pickMealNoCheck(svt);
     document.getElementById('user-form-card').style.display     = 'none';
     document.getElementById('user-submit-result').style.display = 'block';
     renderUserSummary();
@@ -644,7 +564,7 @@ function restoreSession() {
     if (voteMap[sid]) {
       mealPick = voteMap[sid];
       localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, tday);
-      pickMeal(mealPick);
+      pickMealNoCheck(mealPick);
       document.getElementById('user-form-card').style.display     = 'none';
       document.getElementById('user-submit-result').style.display = 'block';
       renderUserSummary();
@@ -738,7 +658,7 @@ function doLogin() {
     if (voteMap[v]) {
       mealPick = voteMap[v];
       localStorage.setItem(LS_VOTE, mealPick); localStorage.setItem(LS_DATE, todayStr());
-      pickMeal(mealPick);
+      pickMealNoCheck(mealPick);
       document.getElementById('user-form-card').style.display     = 'none';
       document.getElementById('user-submit-result').style.display = 'block';
       renderUserSummary();
@@ -760,6 +680,10 @@ function checkDeadline() {
 
 /* 투표 */
 function pickMeal(t) {
+  if (isPastDeadline(voteDate)) { checkDeadline(); return; }
+  pickMealNoCheck(t);
+}
+function pickMealNoCheck(t) {
   mealPick = t;
   document.getElementById('c-yes').className = 'cbtn' + (t === 'yes' ? ' cy' : '');
   document.getElementById('c-no').className  = 'cbtn' + (t === 'no'  ? ' cn' : '');
@@ -767,6 +691,12 @@ function pickMeal(t) {
 }
 
 function submitVote() {
+  /* 제출 직전 마감 재검증 */
+  if (isPastDeadline(voteDate)) {
+    checkDeadline();
+    alert('투표 마감 시간이 지났습니다.');
+    return;
+  }
   if (!mealPick) { document.getElementById('choice-warn').style.display = 'flex'; return; }
   var found = staffList.find(function(s) { return s.id === loggedId; });
   var date  = voteDate || todayStr();
@@ -850,148 +780,6 @@ function copyNotice() {
     ok.style.display = 'flex';
     setTimeout(function() { ok.style.display = 'none'; }, 2500);
   }).catch(function() { alert(msg); });
-}
-
-/* 식단표 탭 */
-function loadMenuForDate() {
-  var date = document.getElementById('menu-date-input').value;
-  apiGet('getMenu', {date: date}, function(res) {
-    document.getElementById('menu-ta').value = res.menu || '';
-    updatePreview();
-  });
-}
-
-function renderMenu(t, date) {
-  var lines = (t || '').split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
-  var el    = document.getElementById('ui-menu-display');
-  if (!lines.length) {
-    el.innerHTML = '<div style="padding:16px;text-align:center;font-size:14px;color:var(--g4)">등록된 식단표가 없습니다.</div>';
-  } else {
-    el.innerHTML = lines.map(function(l, i) {
-      var br = i === 0 ? 'var(--rx) var(--rx) 0 0' : i === lines.length-1 ? '0 0 var(--rx) var(--rx)' : '0';
-      return '<div class="mrow" style="border-radius:' + br + '">' + escH(l) + '</div>';
-    }).join('');
-  }
-  if (date) updateMenuDateLabel(date);
-}
-
-function saveMenu() {
-  var date = document.getElementById('menu-date-input').value;
-  var menu = document.getElementById('menu-ta').value.trim();
-  if (!menu) { alert('메뉴를 입력해주세요.'); return; }
-  apiPost('saveMenu', {date: date, menu: menu}, function(res) {
-    if (!res || res.error) { alert('저장 실패'); return; }
-    var ok = document.getElementById('menu-save-ok');
-    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 2000);
-    updatePreview();
-    if (date === todayStr()) renderMenu(menu, date);
-  });
-}
-
-function deleteMenu() {
-  var date = document.getElementById('menu-date-input').value;
-  if (!confirm(date + ' 식단을 삭제할까요?')) return;
-  apiPost('deleteMenu', {date: date}, function(res) {
-    if (!res || res.error) { alert('삭제 실패'); return; }
-    document.getElementById('menu-ta').value = '';
-    updatePreview();
-    var ok = document.getElementById('menu-delete-ok');
-    ok.style.display = 'flex'; setTimeout(function() { ok.style.display = 'none'; }, 2000);
-    if (date === todayStr()) renderMenu('', date);
-  });
-}
-
-function updatePreview() {
-  var lines = document.getElementById('menu-ta').value.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
-  var el    = document.getElementById('menu-preview-list');
-  if (!lines.length) {
-    el.innerHTML = '<div style="padding:14px;text-align:center;font-size:13px;color:var(--g4)">메뉴를 입력하면 여기에 표시됩니다.</div>';
-    return;
-  }
-  el.innerHTML = lines.map(function(l, i) {
-    var br = i === 0 ? 'var(--rx) var(--rx) 0 0' : i === lines.length-1 ? '0 0 var(--rx) var(--rx)' : '0';
-    return '<div class="mrow" style="border-radius:' + br + '">' + escH(l) + '</div>';
-  }).join('');
-}
-
-/* 식단표 엑셀 파싱 */
-function handleMenuFile(inp) {
-  if (!inp.files || !inp.files[0]) return;
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var wb   = XLSX.read(new Uint8Array(e.target.result), {type:'array', cellText:true, cellDates:true});
-    var ws   = wb.Sheets[wb.SheetNames[0]];
-    var rows = XLSX.utils.sheet_to_json(ws, {header:1, defval:'', raw:false});
-    parsedMenus = [];
-    document.getElementById('menu-bulk-rows').innerHTML = '';
-    var year = new Date().getFullYear(), headerRow = -1, colDates = {};
-
-    for (var i = 0; i < rows.length; i++) {
-      var cnt = 0;
-      for (var j = 0; j < rows[i].length; j++) {
-        var c = String(rows[i][j] || '');
-        if ((c.match(/[월화수목금]/) && c.match(/\d+/)) || c.match(/^\d{1,2}\/\d{1,2}$/)) cnt++;
-      }
-      if (cnt >= 3) { headerRow = i; break; }
-    }
-
-    if (headerRow < 0) { alert('날짜 행을 인식하지 못했어요. "월(6/29)" 형식이 3개 이상 있는 행이 필요합니다.'); return; }
-
-    rows[headerRow].forEach(function(cell, j) {
-      var c = String(cell || '').trim();
-      var m = c.match(/(\d{1,2})[\/\-](\d{1,2})/);
-      if (m) {
-        var mon = +m[1], day = +m[2], y = year;
-        if (mon < new Date().getMonth() - 2) y = year + 1;
-        colDates[j] = y + '-' + pad(mon) + '-' + pad(day);
-      }
-    });
-
-    if (!Object.keys(colDates).length) { alert('날짜를 파싱하지 못했어요.'); return; }
-
-    var menuRows = [];
-    for (var i = headerRow + 1; i < rows.length; i++) {
-      var f = String(rows[i][0] || '').trim();
-      if (f.match(/원산지|★|돼지|쇠고기|수산|위 메뉴|납품|알레르기|고등어|닭고기/)) break;
-      menuRows.push(rows[i]);
-    }
-
-    var tbody = document.getElementById('menu-bulk-rows');
-    Object.keys(colDates).sort(function(a, b) { return +a - +b; }).forEach(function(col) {
-      var date = colDates[col], items = [];
-      menuRows.forEach(function(row) {
-        var v = String(row[col] || '').trim();
-        if (!v || v.match(/^[중석조]\s*식$|^구분$|^메뉴$/)) return;
-        items.push(v);
-      });
-      if (!items.length) return;
-      parsedMenus.push({date: date, menu: items.join('\n')});
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + escH(date) + '</td><td>' + escH(items.join(', ')) + '</td><td style="text-align:center"><span class="badge bg">인식됨</span></td>';
-      tbody.appendChild(tr);
-    });
-
-    if (!parsedMenus.length) { alert('메뉴를 인식하지 못했어요.'); return; }
-    document.getElementById('menu-bulk-preview').style.display = 'block';
-    document.getElementById('menu-uz-title').textContent = inp.files[0].name + ' (' + parsedMenus.length + '일 인식됨)';
-  };
-  reader.readAsArrayBuffer(inp.files[0]);
-}
-
-function saveAllMenus() {
-  if (!parsedMenus.length) return;
-  var i = 0;
-  function next() {
-    if (i >= parsedMenus.length) {
-      alert(i + '개 식단이 저장되었습니다.');
-      document.getElementById('menu-bulk-preview').style.display = 'none';
-      parsedMenus = [];
-      return;
-    }
-    var item = parsedMenus[i++];
-    apiPost('saveMenu', {date: item.date, menu: item.menu}, next);
-  }
-  next();
 }
 
 /* 직원 탭 */
@@ -1107,36 +895,6 @@ function changePin() {
 }
 
 /* 서식 다운로드 */
-function downloadMenuTemplate() {
-  var wb   = XLSX.utils.book_new();
-  var now  = new Date();
-  var day  = now.getDay();
-  var mon  = new Date(now);
-  mon.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
-  var days = ['월','화','수','목','금'];
-  var headers = ['구분'];
-  for (var i = 0; i < 5; i++) {
-    var d = new Date(mon); d.setDate(mon.getDate() + i);
-    headers.push(days[i] + '(' + (d.getMonth()+1) + '/' + d.getDate() + ')');
-  }
-  var rows = [
-    ['주간식단표'],
-    ['지점명 : 정읍지사'],
-    headers,
-    ['중 식','흰밥','흰밥','흰밥','흰밥','흰밥'],
-    ['중 식','국(찌개)','국(찌개)','국(찌개)','국(찌개)','국(찌개)'],
-    ['중 식','주찬','주찬','주찬','주찬','주찬'],
-    ['중 식','부찬1','부찬1','부찬1','부찬1','부찬1'],
-    ['중 식','부찬2','부찬2','부찬2','부찬2','부찬2'],
-    ['중 식','김치','김치','김치','김치','김치'],
-  ];
-  var ws = XLSX.utils.aoa_to_sheet(rows);
-  ws['!cols'] = [{wch:8},{wch:16},{wch:16},{wch:16},{wch:16},{wch:16}];
-  ws['!merges'] = [{s:{r:0,c:0},e:{r:0,c:5}},{s:{r:1,c:0},e:{r:1,c:5}}];
-  XLSX.utils.book_append_sheet(wb, ws, '주간식단표');
-  XLSX.writeFile(wb, '식단표_서식.xlsx');
-}
-
 function downloadStaffTemplate() {
   var wb   = XLSX.utils.book_new();
   var rows = [['사번','이름'],['001','홍길동'],['002','김영희'],['003','이철수']];
